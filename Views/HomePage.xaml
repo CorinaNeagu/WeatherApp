@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WeatherApp.Pages.HomePage"
+    Title="Home"
+    BackgroundColor="#F4F6FC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="22">
+
+            <Grid ColumnDefinitions="*,Auto"
+                  VerticalOptions="Center">
+
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="WEATHER APP"
+                           FontSize="12"
+                           CharacterSpacing="3"
+                           TextColor="#7164D8"
+                           FontAttributes="Bold"/>
+
+                    <Label Text="Buna! ☀️"
+                           FontSize="32"
+                           FontAttributes="Bold"
+                           TextColor="#20243A"/>
+
+                    <Label Text="Descopera lumea prin vreme."
+                           FontSize="15"
+                           TextColor="#777D91"/>
+                </VerticalStackLayout>
+
+                <Border Grid.Column="1"
+                        BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="13"
+                        VerticalOptions="Center">
+
+                    <Label Text="🌤️" FontSize="30"/>
+                </Border>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,Auto"
+                  VerticalOptions="Center">
+
+                <Label Text="Exploreaza"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#20243A"
+                       VerticalOptions="Center"/>
+
+                <Label Grid.Column="1"
+                       Text="DESCOPERA  →"
+                       FontSize="10"
+                       CharacterSpacing="1"
+                       FontAttributes="Bold"
+                       TextColor="#7164D8"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <CarouselView
+                x:Name="WeatherCarousel"
+                HeightRequest="340"
+                ItemsSource="{Binding WeatherImages}"
+                IsSwipeEnabled="True"
+                Loop="True">
+
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="0,4,8,8">
+
+                            <Border
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 26"
+                                BackgroundColor="#D9DCEC">
+
+                                <Grid>
+
+                                    <Image
+                                        Source="{Binding Image}"
+                                        Aspect="AspectFit"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill"/>
+
+                                    <BoxView
+                                        VerticalOptions="Fill"
+                                        HorizontalOptions="Fill"
+                                        InputTransparent="True"
+                                        Color="#220D1025"/>             
+
+                                    <VerticalStackLayout
+                                        Padding="22"
+                                        Spacing="10"
+                                        VerticalOptions="End">
+
+                                        <Border
+                                            BackgroundColor="#55FFFFFF"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 12"
+                                            Padding="10,5"
+                                            HorizontalOptions="Start">
+
+                                            <Label
+                                                Text="✦  WEATHER MOMENTS"
+                                                FontSize="10"
+                                                CharacterSpacing="1"
+                                                TextColor="White"
+                                                FontAttributes="Bold"/>
+                                        </Border>
+
+                                        <Label
+                                            Text="{Binding Title}"
+                                            FontSize="28"
+                                            FontAttributes="Bold"
+                                            TextColor="White"
+                                            LineBreakMode="WordWrap"/>
+
+                                        <Label
+                                            Text="{Binding Description}"
+                                            FontSize="14"
+                                            TextColor="White"
+                                            LineBreakMode="WordWrap"/>
+
+                                    </VerticalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <IndicatorView
+                x:Name="CarouselIndicators"
+                HorizontalOptions="Center"
+                IndicatorColor="#D4D6E3"
+                SelectedIndicatorColor="#7164D8"
+                IndicatorSize="9"/>
+
+            <Border
+                BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 22"
+                Padding="18">
+
+                <Grid ColumnDefinitions="Auto,*"
+                      ColumnSpacing="14">
+
+                    <Border
+                        BackgroundColor="#F0EEFF"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="12"
+                        VerticalOptions="Center">
+
+                        <Label Text="🌍" FontSize="28"/>
+                    </Border>
+
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="5"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="Exploreaza natura"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#20243A"/>
+
+                        <Label
+                            Text="Soare, nori, ploaie si peisaje spectaculoase, intr-un singur loc."
+                            FontSize="13"
+                            TextColor="#777D91"
+                            LineBreakMode="WordWrap"/>
+
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

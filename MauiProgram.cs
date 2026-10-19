@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Toolkit.Hosting;
+using System.Net.Http;
+using WeatherApp.Services;
+using WeatherApp.Repositories;
 
 namespace WeatherApp
 {
@@ -9,6 +12,7 @@ namespace WeatherApp
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            SQLitePCL.Batteries_V2.Init();
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
@@ -55,6 +59,12 @@ namespace WeatherApp
 
             builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
             builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
+
+            builder.Services.AddSingleton(new HttpClient());
+            builder.Services.AddSingleton<WeatherAPIService>();
+            builder.Services.AddSingleton<WeatherHistoryRepository>();
+            builder.Services.AddSingleton<WeatherSearchService>();
+            builder.Services.AddTransient<WeatherApp.Views.CurrentWeatherPage>();
 
             return builder.Build();
         }

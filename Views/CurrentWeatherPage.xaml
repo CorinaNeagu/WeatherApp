@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WeatherApp.Views.CurrentWeatherPage"
+    Title="Vremea actuală"
+    BackgroundColor="#F3F6FC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="22">
+
+            <Label
+                Text="☀️ Vremea actuală"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="#172554" />
+
+            <Label
+                Text="Află cum este vremea în orașul tău."
+                FontSize="15"
+                TextColor="#64748B" />
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#DCE3EF"
+                StrokeThickness="1"
+                Padding="8"
+                StrokeShape="RoundRectangle 16">
+
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                    <Entry
+                        x:Name="CityEntry"
+                        Placeholder="Caută un oraș..."
+                        TextColor="#172554"
+                        PlaceholderColor="#94A3B8"
+                        BackgroundColor="White"
+                        ReturnType="Search"
+                        Completed="OnSearchClicked"
+                        VerticalOptions="Center" />
+
+                    <Button
+                        Grid.Column="1"
+                        Text="Caută"
+                        Clicked="OnSearchClicked"
+                        BackgroundColor="#2563EB"
+                        TextColor="White"
+                        CornerRadius="12"
+                        Padding="18,12" />
+                </Grid>
+            </Border>
+
+            <ActivityIndicator
+                x:Name="LoadingIndicator"
+                IsRunning="False"
+                IsVisible="False"
+                Color="#2563EB" />
+
+            <Label
+                x:Name="ErrorLabel"
+                IsVisible="False"
+                TextColor="#DC2626" />
+
+            <Border
+                x:Name="WeatherCard"
+                IsVisible="False"
+                BackgroundColor="White"
+                Stroke="#E2E8F0"
+                StrokeThickness="1"
+                Padding="22"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="18">
+
+                    <Label
+                        x:Name="CityLabel"
+                        FontSize="21"
+                        FontAttributes="Bold"
+                        TextColor="#172554"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        x:Name="TemperatureLabel"
+                        FontSize="52"
+                        FontAttributes="Bold"
+                        TextColor="#2563EB"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        x:Name="ConditionLabel"
+                        FontSize="17"
+                        TextColor="#475569"
+                        HorizontalOptions="Center" />
+
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        RowDefinitions="Auto,Auto"
+                        ColumnSpacing="16"
+                        RowSpacing="20">
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="🌡️ Resimțită"
+                                   TextColor="#64748B" />
+                            <Label x:Name="FeelsLikeLabel"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#172554" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="6">
+                            <Label Text="💧 Umiditate"
+                                   TextColor="#64748B" />
+                            <Label x:Name="HumidityLabel"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#172554" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Spacing="6">
+                            <Label Text="💨 Vânt"
+                                   TextColor="#64748B" />
+                            <Label x:Name="WindLabel"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#172554" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1"
+                                             Grid.Column="1"
+                                             Spacing="6">
+                            <Label Text="🕒 Actualizat"
+                                   TextColor="#64748B" />
+                            <Label x:Name="UpdatedLabel"
+                                   FontSize="15"
+                                   TextColor="#172554" />
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

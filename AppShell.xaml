@@ -39,6 +39,13 @@
         ContentTemplate="{DataTemplate views:CurrentWeatherPage}"
         Route="currentweather" />
 
+
+    <ShellContent
+    Title="Istoric căutări"
+    ContentTemplate="{DataTemplate views:HistoryPage}"
+    Route="history" />
+
+
     <ShellContent
         Title="Dashboard"
         Icon="{StaticResource IconDashboard}"

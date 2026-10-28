@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WeatherApp.Views.HistoryPage"
+    Title="Istoric căutări"
+    BackgroundColor="#F3F6FC">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+          RowSpacing="12">
+
+        <!-- Titlu -->
+        <VerticalStackLayout Grid.Row="0" Spacing="5">
+
+            <Label
+                Text="Istoric căutări"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="#172554" />
+
+            <Label
+                Text="Orașele căutate anterior"
+                FontSize="14"
+                TextColor="#64748B" />
+
+        </VerticalStackLayout>
+
+        <!-- Căutare -->
+        <SearchBar
+            Grid.Row="1"
+            x:Name="HistorySearchBar"
+            Placeholder="Caută un oraș..."
+            TextChanged="OnFilterChanged"
+            BackgroundColor="White"
+            TextColor="#172554"/>
+
+        <!-- Sortare -->
+        <Grid Grid.Row="2"
+              ColumnDefinitions="Auto,*"
+              ColumnSpacing="10">
+
+            <Label
+                Text="Sortează:"
+                TextColor="#172554"
+                VerticalOptions="Center" />
+
+            <Picker
+                Grid.Column="1"
+                x:Name="SortPicker"
+                SelectedIndexChanged="OnFilterChanged"
+                TextColor="#172554">
+
+                <Picker.Items>
+                    <x:String>Cele mai recente</x:String>
+                    <x:String>Cele mai vechi</x:String>
+                    <x:String>Oraș A-Z</x:String>
+                </Picker.Items>
+
+            </Picker>
+        </Grid>
+
+        <!-- Număr de căutări -->
+        <Label
+            Grid.Row="3"
+            x:Name="CountLabel"
+            Text="0 căutări"
+            FontAttributes="Bold"
+            TextColor="#172554" />
+
+        <!-- Lista istoricului -->
+        <CollectionView
+            Grid.Row="4"
+            x:Name="HistoryCollectionView"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <Label
+                    Text="Nu există căutări de afișat."
+                    TextColor="#64748B"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E2E8F0"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="15"
+                        Margin="0,0,0,10">
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              RowDefinitions="Auto,Auto"
+                              RowSpacing="8">
+
+                            <Label
+                                Grid.Row="0"
+                                Text="{Binding CityName}"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="#172554" />
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{Binding Temperature,
+                                    StringFormat='{0:0.#} °C'}"
+                                FontSize="22"
+                                FontAttributes="Bold"
+                                TextColor="#2563EB" />
+
+                            <Label
+                                Grid.Row="1"
+                                Text="{Binding SearchedAt,
+                                    StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                FontSize="12"
+                                TextColor="#64748B" />
+
+                        </Grid>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- Ștergere istoric -->
+        <Button
+            Grid.Row="5"
+            Text="Șterge tot istoricul"
+            Clicked="OnClearHistoryClicked"
+            BackgroundColor="#DC2626"
+            TextColor="White"
+            CornerRadius="12" />
+
+    </Grid>
+</ContentPage>

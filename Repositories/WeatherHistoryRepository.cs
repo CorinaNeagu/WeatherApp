@@ -125,5 +125,20 @@ public class WeatherHistoryRepository
 
         return history;
     }
+
+
+    public async Task DeleteAllAsync()
+    {
+        await InitializeAsync();
+
+        await using var connection = CreateConnection();
+        await connection.OpenAsync();
+
+        using var command = connection.CreateCommand();
+        command.CommandText = "DELETE FROM WeatherHistory";
+
+        await command.ExecuteNonQueryAsync();
+    }
+
 }
 

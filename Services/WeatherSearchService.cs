@@ -49,4 +49,11 @@ public class WeatherSearchService
 
         return await _historyRepository.GetAllAsync();
     }
+
+
+    public async Task ClearHistoryAsync()
+    {
+        await _historyRepository.DeleteAllAsync();
+    }
+
 }

@@ -66,6 +66,9 @@ namespace WeatherApp
             builder.Services.AddSingleton<WeatherSearchService>();
             builder.Services.AddTransient<WeatherApp.Views.CurrentWeatherPage>();
 
+            builder.Services.AddTransient<WeatherApp.Views.HistoryPage>();
+
+
             return builder.Build();
         }
     }

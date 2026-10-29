@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WeatherApp.Views.AirQualityPage"
+    Title="Calitatea aerului"
+    BackgroundColor="#F3F6FC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="22" Spacing="18">
+
+            <Label
+                Text="Calitatea aerului"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="#172554"/>
+
+            <Label
+                Text="Verifică nivelul poluării în orașul ales."
+                FontSize="14"
+                TextColor="#64748B"/>
+
+            <Entry
+                x:Name="CityEntry"
+                Placeholder="Introdu orașul"
+                Text="București"
+                BackgroundColor="White"
+                TextColor="#172554"
+                ClearButtonVisibility="WhileEditing"/>
+
+            <Button
+                Text="Verifică aerul"
+                Clicked="OnCheckClicked"
+                BackgroundColor="#2563EB"
+                TextColor="White"
+                CornerRadius="12"
+                HeightRequest="50"/>
+
+            <ActivityIndicator
+                x:Name="LoadingIndicator"
+                IsVisible="False"
+                IsRunning="False"
+                Color="#2563EB"/>
+
+            <Label
+                x:Name="ErrorLabel"
+                IsVisible="False"
+                TextColor="#DC2626"/>
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#E2E8F0"
+                StrokeShape="RoundRectangle 20"
+                Padding="20">
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Label
+                        x:Name="CityLabel"
+                        Text="Orașul selectat"
+                        FontSize="16"
+                        TextColor="#64748B"/>
+
+                    <Label
+                        Text="Indice european AQI"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="#172554"/>
+
+                    <Label
+                        x:Name="AqiLabel"
+                        Text="--"
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        TextColor="#2563EB"/>
+
+                    <Label
+                        Text="Cu cât valoarea este mai mică, cu atât aerul este mai curat."
+                        FontSize="13"
+                        TextColor="#64748B"/>
+
+                    <Label
+                        x:Name="AqiStatusLabel"
+                        Text="Caută un oraș pentru a vedea nivelul."
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#475569"/>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Label
+                Text="Poluanți măsurați"
+                FontSize="21"
+                FontAttributes="Bold"
+                TextColor="#172554"/>
+
+            <Grid
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto"
+                ColumnSpacing="12"
+                RowSpacing="12">
+
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16">
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label
+                            Text="PM2.5"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#2563EB"/>
+                        <Label
+                            x:Name="Pm25Label"
+                            Text="-- µg/m³"
+                            FontSize="17"
+                            TextColor="#172554"/>
+                        <Label
+                            Text="Particule fine"
+                            FontSize="12"
+                            TextColor="#64748B"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16">
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label
+                            Text="PM10"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#D97706"/>
+                        <Label
+                            x:Name="Pm10Label"
+                            Text="-- µg/m³"
+                            FontSize="17"
+                            TextColor="#172554"/>
+                        <Label
+                            Text="Particule în suspensie"
+                            FontSize="12"
+                            TextColor="#64748B"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    Grid.Row="1"
+                    BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16">
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label
+                            Text="NO₂"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#7C3AED"/>
+                        <Label
+                            x:Name="No2Label"
+                            Text="-- µg/m³"
+                            FontSize="17"
+                            TextColor="#172554"/>
+                        <Label
+                            Text="Dioxid de azot"
+                            FontSize="12"
+                            TextColor="#64748B"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16">
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label
+                            Text="O₃"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#059669"/>
+                        <Label
+                            x:Name="OzoneLabel"
+                            Text="-- µg/m³"
+                            FontSize="17"
+                            TextColor="#172554"/>
+                        <Label
+                            Text="Ozon"
+                            FontSize="12"
+                            TextColor="#64748B"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <Label
+                Text="Datele sunt furnizate de Open-Meteo. Valorile reflectă estimările disponibile pentru locația selectată."
+                FontSize="12"
+                TextColor="#64748B"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -39,6 +39,15 @@
         ContentTemplate="{DataTemplate views:CurrentWeatherPage}"
         Route="currentweather" />
 
+    <ShellContent
+    Title="Prognoza meteo"
+    ContentTemplate="{DataTemplate views:ForecastPage}"
+    Route="forecast" />
+    
+    <ShellContent
+    Title="Calitatea aerului"
+    ContentTemplate="{DataTemplate views:AirQualityPage}"
+    Route="airquality" />
 
     <ShellContent
     Title="Istoric căutări"

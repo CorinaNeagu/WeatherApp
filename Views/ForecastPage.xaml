@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WeatherApp.Views.ForecastPage"
+    Title="Prognoza meteo"
+    BackgroundColor="#F3F6FC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="22" Spacing="18">
+
+            <Label
+                Text="Prognoza meteo"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="#172554"/>
+
+            <Label
+                Text="Descoperă temperaturile pentru zilele următoare."
+                FontSize="14"
+                TextColor="#64748B"/>
+
+            <Entry
+                x:Name="CityEntry"
+                Placeholder="Introdu orașul (ex. București)"
+                Text="București"
+                BackgroundColor="White"
+                TextColor="#172554"
+                ClearButtonVisibility="WhileEditing"/>
+
+            <Label
+                Text="Alege perioada"
+                FontAttributes="Bold"
+                TextColor="#172554"/>
+
+            <Picker
+                x:Name="DaysPicker"
+                Title="Selectează numărul de zile"
+                SelectedIndex="2"
+                BackgroundColor="White"
+                TextColor="#172554">
+                <Picker.Items>
+                    <x:String>3 zile</x:String>
+                    <x:String>5 zile</x:String>
+                    <x:String>7 zile</x:String>
+                    <x:String>14 zile</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Button
+                Text="Afișează prognoza"
+                Clicked="OnForecastClicked"
+                BackgroundColor="#2563EB"
+                TextColor="White"
+                CornerRadius="12"
+                HeightRequest="50"/>
+
+            <ActivityIndicator
+                x:Name="LoadingIndicator"
+                IsVisible="False"
+                IsRunning="False"
+                Color="#2563EB"/>
+
+            <Label
+                x:Name="ErrorLabel"
+                IsVisible="False"
+                TextColor="#DC2626"/>
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#E2E8F0"
+                StrokeShape="RoundRectangle 18"
+                Padding="14">
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Evoluția temperaturilor"
+                        FontSize="19"
+                        FontAttributes="Bold"
+                        TextColor="#172554"/>
+
+                    <Grid
+                        ColumnDefinitions="Auto,*"
+                        RowDefinitions="Auto,Auto"
+                        ColumnSpacing="8"
+                        RowSpacing="6">
+                        <BoxView
+                            Color="#E58B35"
+                            WidthRequest="12"
+                            HeightRequest="12"
+                            VerticalOptions="Center"/>
+                        <Label
+                            Text="Maximă"
+                            TextColor="#475569"
+                            Grid.Column="1"/>
+
+                        <BoxView
+                            Color="#2563EB"
+                            WidthRequest="12"
+                            HeightRequest="12"
+                            VerticalOptions="Center"
+                            Grid.Row="1"/>
+                        <Label
+                            Text="Minimă"
+                            TextColor="#475569"
+                            Grid.Column="1"
+                            Grid.Row="1"/>
+                    </Grid>
+
+                    <GraphicsView
+                        x:Name="ForecastChart"
+                        HeightRequest="250"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label
+                Text="Temperaturi pe zile"
+                FontSize="21"
+                FontAttributes="Bold"
+                TextColor="#172554"/>
+
+            <CollectionView
+                x:Name="ForecastList"
+                SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BackgroundColor="White"
+                            Stroke="#E2E8F0"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="14"
+                            Margin="0,0,0,9">
+
+                            <Grid
+                                ColumnDefinitions="*,Auto,Auto"
+                                ColumnSpacing="14">
+
+                                <Label
+                                    Text="{Binding Date}"
+                                    FontAttributes="Bold"
+                                    TextColor="#172554"
+                                    VerticalOptions="Center"/>
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding MinTemperature,
+                                        StringFormat='Min {0:F1}°'}"
+                                    TextColor="#2563EB"
+                                    VerticalOptions="Center"/>
+
+                                <Label
+                                    Grid.Column="2"
+                                    Text="{Binding MaxTemperature,
+                                        StringFormat='Max {0:F1}°'}"
+                                    TextColor="#D97706"
+                                    VerticalOptions="Center"/>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

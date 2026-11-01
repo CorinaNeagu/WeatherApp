@@ -63,11 +63,15 @@ namespace WeatherApp
             builder.Services.AddSingleton(new HttpClient());
             builder.Services.AddSingleton<WeatherAPIService>();
             builder.Services.AddSingleton<WeatherHistoryRepository>();
+            builder.Services.AddSingleton<WeatherStatisticsRepository>();
+            builder.Services.AddTransient<WeatherStatisticsService>();
             builder.Services.AddSingleton<WeatherSearchService>();
             builder.Services.AddTransient<WeatherApp.Views.CurrentWeatherPage>();
             builder.Services.AddTransient<WeatherApp.Views.AirQualityPage>();
             builder.Services.AddTransient<WeatherApp.Views.HistoryPage>();
             builder.Services.AddTransient<WeatherApp.Views.ForecastPage>();
+            builder.Services.AddTransient<WeatherApp.Views.StatisticsPage>();
+
 
             return builder.Build();
         }

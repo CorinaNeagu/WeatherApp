@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WeatherApp.Views.AdvancedStatisticsPage"
+    Title="Mai mult statistici"
+    BackgroundColor="#F3F5F9">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18" Spacing="18">
+
+            <Grid ColumnDefinitions="Auto,*"
+                  ColumnSpacing="14">
+
+                <Button
+                    Text="‹"
+                    FontSize="28"
+                    WidthRequest="48"
+                    HeightRequest="48"
+                    CornerRadius="14"
+                    BackgroundColor="White"
+                    TextColor="#263238"
+                    Clicked="Back_Clicked"/>
+
+                <VerticalStackLayout Grid.Column="1"
+                                     VerticalOptions="Center">
+                    <Label
+                        Text="Analiză meteo"
+                        FontSize="25"
+                        FontAttributes="Bold"
+                        TextColor="#202B3C"/>
+
+                    <Label
+                        x:Name="CityTitle"
+                        Text="Oraș selectat"
+                        FontSize="13"
+                        TextColor="#718096"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <Border
+                BackgroundColor="#E8F0FE"
+                StrokeThickness="0"
+                Padding="14"
+                StrokeShape="RoundRectangle 14">
+
+                <Label
+                    x:Name="PeriodTitle"
+                    Text="Analiza perioadei selectate"
+                    FontSize="13"
+                    TextColor="#2456A6"/>
+            </Border>
+
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="18"
+                    StrokeShape="RoundRectangle 18">
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="💨  Viteza vantului"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           TextColor="#263445"/>
+
+                    <Label Text="Evolutia zilnica a vitezei vantului (km/h)"
+                           FontSize="12"
+                           TextColor="#8290A3"/>
+
+                    <GraphicsView
+                        x:Name="WindChart"
+                        HeightRequest="220"/>
+
+                    <Label Text="Graficul arata cum a variat viteza medie a vantului in fiecare zi."
+                           FontSize="12"
+                           TextColor="#718096"/>
+                </VerticalStackLayout>
+            </Border>
+
+            
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="18"
+                    StrokeShape="RoundRectangle 18">
+
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="📊  Comparatie între perioade"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           TextColor="#263445"/>
+
+                    <Label Text="Perioada selectată comparata cu intervalul anterior."
+                           FontSize="12"
+                           TextColor="#8290A3"/>
+
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Temperatura medie (°C)"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               TextColor="#344054"/>
+
+                        <GraphicsView
+                            x:Name="ComparisonTemperatureChart"
+                            HeightRequest="125"/>
+
+                        <Label x:Name="TemperatureComparisonLabel"
+                               Text="—"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#E87532"/>
+
+                        <Label x:Name="TemperatureExplanation"
+                               Text="Comparatia temperaturilor va fi afisata aici."
+                               FontSize="12"
+                               TextColor="#718096"/>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1"
+                             Color="#EDF0F4"/>
+
+                    
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Umiditate medie (%)"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               TextColor="#344054"/>
+
+                        <GraphicsView
+                            x:Name="ComparisonHumidityChart"
+                            HeightRequest="125"/>
+
+                        <Label x:Name="HumidityComparisonLabel"
+                               Text="—"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#2196A6"/>
+
+                        <Label x:Name="HumidityExplanation"
+                               Text="Comparatia umiditatii va fi afisata aici."
+                               FontSize="12"
+                               TextColor="#718096"/>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1"
+                             Color="#EDF0F4"/>
+
+                   
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Viteza medie vant (km/h)"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               TextColor="#344054"/>
+
+                        <GraphicsView
+                            x:Name="ComparisonWindChart"
+                            HeightRequest="125"/>
+
+                        <Label x:Name="WindComparisonLabel"
+                               Text="—"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#00897B"/>
+
+                        <Label x:Name="WindExplanation"
+                               Text="Comparatia vantului va fi afisata aici."
+                               FontSize="12"
+                               TextColor="#718096"/>
+                    </VerticalStackLayout>
+
+                    <Label x:Name="ComparisonDescription"
+                           Text="Valorile compara mediile celor doua perioade."
+                           FontSize="11"
+                           TextColor="#8290A3"/>
+                </VerticalStackLayout>
+            </Border>
+
+            
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="18"
+                    StrokeShape="RoundRectangle 18">
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="🏆  Recorduri meteo"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           TextColor="#263445"/>
+
+                    <Grid ColumnDefinitions="*,*"
+                          RowDefinitions="Auto,Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="12">
+
+                        <Border Grid.Row="0" Grid.Column="0"
+                                BackgroundColor="#FFF1E7"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Temperatura maxima"
+                                       FontSize="11"
+                                       TextColor="#A65B25"/>
+                                <Label x:Name="MaxTemperatureLabel"
+                                       Text="—"
+                                       FontSize="22"
+                                       FontAttributes="Bold"
+                                       TextColor="#E65100"/>
+                                <Label x:Name="MaxTemperatureDateLabel"
+                                       FontSize="10"
+                                       TextColor="#946B50"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1"
+                                BackgroundColor="#EAF3FF"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Temperatura minima"
+                                       FontSize="11"
+                                       TextColor="#35649B"/>
+                                <Label x:Name="MinTemperatureLabel"
+                                       Text="—"
+                                       FontSize="22"
+                                       FontAttributes="Bold"
+                                       TextColor="#1565C0"/>
+                                <Label x:Name="MinTemperatureDateLabel"
+                                       FontSize="10"
+                                       TextColor="#617D9C"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0"
+                                BackgroundColor="#E5F7F7"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Umiditate maxima"
+                                       FontSize="11"
+                                       TextColor="#287C83"/>
+                                <Label x:Name="MaxHumidityLabel"
+                                       Text="—"
+                                       FontSize="22"
+                                       FontAttributes="Bold"
+                                       TextColor="#00838F"/>
+                                <Label x:Name="MaxHumidityDateLabel"
+                                       FontSize="10"
+                                       TextColor="#527F83"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="1"
+                                BackgroundColor="#F2EAFE"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Vant maxim"
+                                       FontSize="11"
+                                       TextColor="#76549B"/>
+                                <Label x:Name="MaxWindLabel"
+                                       Text="—"
+                                       FontSize="22"
+                                       FontAttributes="Bold"
+                                       TextColor="#6A1B9A"/>
+                                <Label x:Name="MaxWindDateLabel"
+                                       FontSize="10"
+                                       TextColor="#806D98"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="18"
+                    StrokeShape="RoundRectangle 18">
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="🗓️  Calendar termic"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           TextColor="#263445"/>
+
+                    <Label Text="Temperatura medie in fiecare zi"
+                           FontSize="12"
+                           TextColor="#8290A3"/>
+
+                    <ScrollView
+                    HeightRequest="320"
+                    Orientation="Vertical">
+
+                        <GraphicsView
+                        x:Name="WeatherCalendar"
+                        HeightRequest="300"
+                        VerticalOptions="Start"/>
+                    </ScrollView>
+
+                    <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto"
+                          ColumnSpacing="4">
+                        <BoxView Grid.Column="0"
+                                 Color="#1565C0"
+                                 WidthRequest="8"
+                                 HeightRequest="8"/>
+                        <Label Grid.Column="1"
+                               Text="Rece"
+                               FontSize="10"
+                               TextColor="Gray"/>
+
+                        <BoxView Grid.Column="2"
+                                 Color="#42A5F5"
+                                 WidthRequest="8"
+                                 HeightRequest="8"/>
+                        <Label Grid.Column="3"
+                               Text="Moderat"
+                               FontSize="10"
+                               TextColor="Gray"/>
+
+                        <BoxView Grid.Column="4"
+                                 Color="#FDD835"
+                                 WidthRequest="8"
+                                 HeightRequest="8"/>
+                        <Label Grid.Column="5"
+                               Text="Cald"
+                               FontSize="10"
+                               TextColor="Gray"/>
+
+                        <BoxView Grid.Column="6"
+                                 Color="#E53935"
+                                 WidthRequest="8"
+                                 HeightRequest="8"/>
+                    </Grid>
+
+                    <Label Text="Fiecare celula reprezinta o zi. Culoarea indica nivelul temperaturii medii."
+                           FontSize="12"
+                           TextColor="#718096"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

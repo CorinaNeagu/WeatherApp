@@ -29,6 +29,7 @@
 
     <ShellContent
         Title="Home"
+        Icon="{StaticResource IconHome}"
         ContentTemplate="{DataTemplate pages:HomePage}"
         Route="home"
         SemanticProperties.Description="Home"
@@ -36,48 +37,34 @@
 
     <ShellContent
         Title="Vremea actuală"
+        Icon="{StaticResource IconWeather}"
         ContentTemplate="{DataTemplate views:CurrentWeatherPage}"
         Route="currentweather" />
 
     <ShellContent
     Title="Prognoza meteo"
+    Icon="{StaticResource IconForecast}"
     ContentTemplate="{DataTemplate views:ForecastPage}"
     Route="forecast" />
     
     <ShellContent
     Title="Calitatea aerului"
+    Icon="{StaticResource IconAirQuality}"
     ContentTemplate="{DataTemplate views:AirQualityPage}"
     Route="airquality" />
 
     <ShellContent
-    Title="Istoric căutări"
+    Title="Istoric cautari"
+    Icon="{StaticResource IconHistory}"
     ContentTemplate="{DataTemplate views:HistoryPage}"
     Route="history" />
-
 
     <ShellContent
         Title="Dashboard"
         Icon="{StaticResource IconDashboard}"
-        ContentTemplate="{DataTemplate pages:MainPage}"
-        Route="main"
-        SemanticProperties.Description="Dashboard"
-        SemanticProperties.Hint="Navigate to dashboard"/>
-
-    <ShellContent
-        Title="Projects"
-        Icon="{StaticResource IconProjects}"
-        ContentTemplate="{DataTemplate pages:ProjectListPage}"
-        Route="projects"
-        SemanticProperties.Description="Projects"
-        SemanticProperties.Hint="Navigate to projects"/>
-
-    <ShellContent
-        Title="Manage Meta"
-        Icon="{StaticResource IconMeta}"
-        ContentTemplate="{DataTemplate pages:ManageMetaPage}"
-        Route="manage"
-        SemanticProperties.Description="Manage Meta"
-        SemanticProperties.Hint="Navigate to manage meta"/>
+        ContentTemplate="{DataTemplate views:StatisticsPage}"
+        Route="dashboard" />
+    
 
     <Shell.FlyoutFooter>
         <Grid Padding="15">

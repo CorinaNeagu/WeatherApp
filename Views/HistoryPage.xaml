@@ -11,7 +11,6 @@
           RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
           RowSpacing="12">
 
-        <!-- Titlu -->
         <VerticalStackLayout Grid.Row="0" Spacing="5">
 
             <Label
@@ -27,7 +26,6 @@
 
         </VerticalStackLayout>
 
-        <!-- Căutare -->
         <SearchBar
             Grid.Row="1"
             x:Name="HistorySearchBar"
@@ -36,7 +34,6 @@
             BackgroundColor="White"
             TextColor="#172554"/>
 
-        <!-- Sortare -->
         <Grid Grid.Row="2"
               ColumnDefinitions="Auto,*"
               ColumnSpacing="10">
@@ -61,7 +58,6 @@
             </Picker>
         </Grid>
 
-        <!-- Număr de căutări -->
         <Label
             Grid.Row="3"
             x:Name="CountLabel"
@@ -69,7 +65,6 @@
             FontAttributes="Bold"
             TextColor="#172554" />
 
-        <!-- Lista istoricului -->
         <CollectionView
             Grid.Row="4"
             x:Name="HistoryCollectionView"
@@ -128,7 +123,6 @@
 
         </CollectionView>
 
-        <!-- Ștergere istoric -->
         <Button
             Grid.Row="5"
             Text="Șterge tot istoricul"

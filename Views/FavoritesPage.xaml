@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WeatherApp.Views.FavoritesPage"
+    Title="Orașe favorite"
+    BackgroundColor="#F3F6FC">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+          RowSpacing="15">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="5">
+
+            <Label
+                Text="Orașe favorite"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="#172554" />
+
+            <Label
+                Text="Salvează orașele pe care le preferi."
+                FontSize="14"
+                TextColor="#64748B" />
+
+        </VerticalStackLayout>
+
+        <Entry
+            Grid.Row="1"
+            x:Name="CityEntry"
+            Placeholder="Introdu un oraș..."
+            TextColor="#172554"
+            PlaceholderColor="#94A3B8"
+            BackgroundColor="White" />
+
+        <Button
+            Grid.Row="2"
+            x:Name="AddButton"
+            Text="Adaugă la favorite"
+            Clicked="OnAddClicked"
+            BackgroundColor="#2563EB"
+            TextColor="White"
+            CornerRadius="12" />
+
+        <Label
+            Grid.Row="3"
+            x:Name="CountLabel"
+            Text="0 orașe favorite"
+            FontAttributes="Bold"
+            TextColor="#172554" />
+
+        <CollectionView
+            Grid.Row="4"
+            x:Name="FavoritesCollectionView"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <Label
+                    Text="Nu ai adăugat încă orașe favorite."
+                    TextColor="#64748B"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E2E8F0"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="15"
+                        Margin="0,0,0,10">
+
+                        <VerticalStackLayout Spacing="12">
+
+                            <VerticalStackLayout Spacing="5">
+
+                                <Label
+                                    Text="{Binding CityName}"
+                                    FontSize="19"
+                                    FontAttributes="Bold"
+                                    TextColor="#172554" />
+
+                                <Label
+                                    Text="{Binding Country}"
+                                    FontSize="13"
+                                    TextColor="#64748B" />
+
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Spacing="10">
+
+                                <Button
+                                    Text="Vezi vremea"
+                                    CommandParameter="{Binding CityName}"
+                                    Clicked="OnWeatherClicked"
+                                    BackgroundColor="#2563EB"
+                                    TextColor="White"
+                                    CornerRadius="10" />
+
+                                <Button
+                                    Text="Șterge"
+                                    CommandParameter="{Binding Id}"
+                                    Clicked="OnDeleteClicked"
+                                    BackgroundColor="#DC2626"
+                                    TextColor="White"
+                                    CornerRadius="10" />
+
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <ActivityIndicator
+            Grid.Row="5"
+            x:Name="LoadingIndicator"
+            IsRunning="False"
+            IsVisible="False"
+            Color="#2563EB"
+            HorizontalOptions="Center" />
+
+    </Grid>
+</ContentPage>

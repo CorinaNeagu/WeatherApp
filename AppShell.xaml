@@ -59,6 +59,13 @@
     ContentTemplate="{DataTemplate views:HistoryPage}"
     Route="history" />
 
+
+    <ShellContent
+    Title="Orașe favorite"
+    Icon="{StaticResource IconFavorites}"
+    ContentTemplate="{DataTemplate views:FavoritesPage}"
+    Route="favorites" />
+
     <ShellContent
         Title="Dashboard"
         Icon="{StaticResource IconDashboard}"

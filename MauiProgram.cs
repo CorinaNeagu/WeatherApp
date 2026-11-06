@@ -71,9 +71,10 @@ namespace WeatherApp
             builder.Services.AddTransient<WeatherApp.Views.HistoryPage>();
             builder.Services.AddSingleton<FavoritesRepository>();
             builder.Services.AddTransient<WeatherApp.Views.FavoritesPage>();
+            builder.Services.AddTransient<WeatherApp.Views.ComparePage>();
             builder.Services.AddTransient<WeatherApp.Views.ForecastPage>();
             builder.Services.AddTransient<WeatherApp.Views.StatisticsPage>();
-
+            
 
             return builder.Build();
         }

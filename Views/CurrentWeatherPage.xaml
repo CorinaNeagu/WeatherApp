@@ -10,7 +10,7 @@
         <VerticalStackLayout Padding="24" Spacing="22">
 
             <Label
-                Text="☀️ Vremea actuală"
+                Text="Vremea actuală"
                 FontSize="28"
                 FontAttributes="Bold"
                 TextColor="#172554" />

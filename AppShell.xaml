@@ -67,13 +67,20 @@
     Route="favorites" />
 
     <ShellContent
+        Title="Compară orașe"
+        Icon="{StaticResource IconCompare}"
+        ContentTemplate="{DataTemplate views:ComparePage}"
+        Route="ComparePage" />
+
+    <ShellContent
         Title="Dashboard"
         Icon="{StaticResource IconDashboard}"
         ContentTemplate="{DataTemplate views:StatisticsPage}"
         Route="dashboard" />
-    
 
-    <Shell.FlyoutFooter>
+
+
+	<Shell.FlyoutFooter>
         <Grid Padding="15">
             <sf:SfSegmentedControl x:Name="ThemeSegmentedControl" 
                 VerticalOptions="Center" HorizontalOptions="Center" SelectionChanged="SfSegmentedControl_SelectionChanged"

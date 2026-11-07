@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using WeatherApp.Models;
 using WeatherApp.Repositories;
+using WeatherApp.Views;
 
 namespace WeatherApp.Services;
 
@@ -10,6 +11,27 @@ public class WeatherStatisticsService
 {
     private readonly HttpClient _httpClient;
     private readonly WeatherStatisticsRepository _repository;
+    public async Task<List<SearchHistoryItem>> GetAllSearchHistoryFromDbAsync()
+    {
+        var allSavedData = await _repository.GetAllAsync(); 
+
+        var historyItems = allSavedData
+            .GroupBy(x => new { x.CityName, x.Country, x.Latitude, x.Longitude })
+            .Select(g => new SearchHistoryItem
+            {
+                City = new CitySearchResult
+                {
+                    Name = g.Key.CityName,
+                    Country = g.Key.Country,
+                    Latitude = g.Key.Latitude,
+                    Longitude = g.Key.Longitude
+                },
+                Days = 7 
+            })
+            .ToList();
+
+        return historyItems;
+    }
 
     public WeatherStatisticsService(
         HttpClient httpClient,

@@ -25,7 +25,7 @@
                 <VerticalStackLayout Grid.Column="1"
                                      VerticalOptions="Center">
                     <Label
-                        Text="Analiză meteo"
+                        Text="Analiza    meteo"
                         FontSize="25"
                         FontAttributes="Bold"
                         TextColor="#202B3C"/>

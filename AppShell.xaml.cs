@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using WeatherApp.Views;
 using Font = Microsoft.Maui.Font;
 
 namespace WeatherApp
@@ -9,6 +10,7 @@ namespace WeatherApp
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute("about", typeof(AboutPage));
             var currentTheme = Application.Current!.RequestedTheme;
             ThemeSegmentedControl.SelectedIndex = currentTheme == AppTheme.Light ? 0 : 1;
         }

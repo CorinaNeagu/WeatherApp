@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherApp.Views.AboutPage"
+             Title="AboutPage">
+
+    <Grid>
+        <Image
+            Source="background.jpg"
+            Aspect="AspectFill"
+            Opacity="0.18"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            InputTransparent="True"/>
+
+        <VerticalStackLayout Padding="20" HorizontalOptions="Start" VerticalOptions="Start">
+            <Button
+                Text="← Inapoi"
+                FontSize="14"
+                FontAttributes="Bold"
+                TextColor="#7770C9"
+                BackgroundColor="White"
+                BorderColor="#ECECF3"
+                BorderWidth="1"
+                CornerRadius="14"
+                Padding="18,10"
+                Clicked="BackButton_Clicked"/>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

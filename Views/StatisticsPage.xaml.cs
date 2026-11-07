@@ -1,4 +1,3 @@
-
 using WeatherApp.Models;
 using WeatherApp.Services;
 using Microsoft.Maui.Graphics;
@@ -16,6 +15,80 @@ public partial class StatisticsPage : ContentPage
 
     private CancellationTokenSource? _searchCancellation;
     private bool _isSelectingCity = false;
+
+    // ==========================================
+    // ISTORICUL CĂUTĂRILOR (IMPLEMENTAT CORECT)
+    // ==========================================
+    private List<SearchHistoryItem> _searchHistory = new();
+
+    private void SaveToHistory(CitySearchResult city, int days)
+    {
+        var existing = _searchHistory.FirstOrDefault(x => x.City.Name == city.Name && x.City.Country == city.Country && x.Days == days);
+        if (existing != null)
+        {
+            _searchHistory.Remove(existing);
+        }
+
+        _searchHistory.Insert(0, new SearchHistoryItem { City = city, Days = days });
+
+        if (_searchHistory.Count > 5)
+        {
+            _searchHistory.RemoveAt(_searchHistory.Count - 1);
+        }
+    }
+
+    private async void RepeatSearch_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var historyList = await _statisticsService.GetAllSearchHistoryFromDbAsync();
+
+            if (historyList == null || historyList.Count == 0)
+            {
+                await DisplayAlert("Istoric gol", "Nu exista nicio cautare salvata in baza de date locala.", "OK");
+                return;
+            }
+
+            var options = historyList.Select(x => x.DisplayText).ToArray();
+
+            string selected = await DisplayActionSheet(
+                "Toate cautarile din baza de date",
+                "Anulare",
+                null,
+                options);
+
+            if (string.IsNullOrEmpty(selected) || selected == "Anulare")
+                return;
+
+            var chosenHistory = historyList.FirstOrDefault(x => x.DisplayText == selected);
+            if (chosenHistory != null)
+            {
+                _selectedCity = chosenHistory.City;
+                _isSelectingCity = true;
+                CitySearchEntry.Text = chosenHistory.City.Name;
+                _isSelectingCity = false;
+                SelectedCityLabel.Text = $"{chosenHistory.City.Name}, {chosenHistory.City.Country}";
+                CitySuggestions.IsVisible = false;
+
+                PeriodPicker.SelectedIndex = chosenHistory.Days switch
+                {
+                    7 => 0,
+                    30 => 1,
+                    90 => 2,
+                    180 => 3,
+                    270 => 4,
+                    365 => 5,
+                    _ => 0
+                };
+
+                LoadStatistics_Clicked(sender, e);
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Eroare", $"Nu s-a putut citi din baza de date: {ex.Message}", "OK");
+        }
+    }
 
     private async void OpenAdvancedStatistics_Clicked(object sender, EventArgs e)
     {
@@ -35,9 +108,19 @@ public partial class StatisticsPage : ContentPage
             2 => 90,
             3 => 180,
             4 => 270,
-            5 => 365,
-            _ => 7
+            5 => 365
         };
+
+        if (PeriodPicker.SelectedIndex == -1)
+        {
+            await DisplayAlert(
+                "Atentie",
+                "Te rog sa selectezi o perioada.",
+                "OK");
+            return;
+        }
+
+        SaveToHistory(_selectedCity, days);
 
         await Navigation.PushModalAsync(
             new NavigationPage(
@@ -46,8 +129,6 @@ public partial class StatisticsPage : ContentPage
                     days,
                     _statisticsService)));
     }
-
-
 
     public StatisticsPage()
       : this(Application.Current!
@@ -108,7 +189,6 @@ public partial class StatisticsPage : ContentPage
         }
         catch (OperationCanceledException)
         {
-           
         }
         catch (Exception ex)
         {
@@ -180,6 +260,9 @@ public partial class StatisticsPage : ContentPage
             _ => 7
         };
 
+        // Salvăm automat în istoric la fiecare încărcare cu succes
+        SaveToHistory(_selectedCity, days);
+
         try
         {
             _statistics = await _statisticsService
@@ -208,7 +291,6 @@ public partial class StatisticsPage : ContentPage
     private void PeriodPicker_SelectedIndexChanged(
         object sender, EventArgs e)
     {
-        // Datele se reîncarcă la apăsarea butonului.
     }
 
     private void UpdateStatistics()
@@ -282,6 +364,18 @@ public partial class StatisticsPage : ContentPage
         TemperatureBoxPlot.Invalidate();
     }
 }
+
+// ==========================================
+// CLASELE AUXILIARE ȘI DE DESENARE (EXTERNE)
+// ==========================================
+
+public class SearchHistoryItem
+{
+    public CitySearchResult City { get; set; }
+    public int Days { get; set; }
+    public string DisplayText => $"{City.Name}, {City.Country} ({Days} zile)";
+}
+
 public class HumidityAreaChartDrawable : IDrawable
 {
     private readonly List<CityWeatherStatistics> _data;
@@ -362,6 +456,7 @@ public class HumidityAreaChartDrawable : IDrawable
         }
     }
 }
+
 public class TemperatureGaugeDrawable : IDrawable
 {
     private readonly List<CityWeatherStatistics> _data;
@@ -425,6 +520,7 @@ public class TemperatureGaugeDrawable : IDrawable
             VerticalAlignment.Center);
     }
 }
+
 public class WeatherDistributionDrawable : IDrawable
 {
     private readonly List<CityWeatherStatistics> _data;
@@ -532,6 +628,7 @@ public class WeatherDistributionDrawable : IDrawable
             VerticalAlignment.Center);
     }
 }
+
 public class TemperatureBoxPlotDrawable : IDrawable
 {
     private readonly List<CityWeatherStatistics> _data;

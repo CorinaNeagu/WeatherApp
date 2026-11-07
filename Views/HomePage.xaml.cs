@@ -1,5 +1,7 @@
 namespace WeatherApp.Pages;
 
+using WeatherApp.Repositories;
+
 public class WeatherImage
 {
     public string Image { get; set; } = string.Empty;
@@ -11,7 +13,8 @@ public partial class HomePage : ContentPage
 {
     private IDispatcherTimer? _timer;
     private CancellationTokenSource? _favoriteToastCancellation;
-    private bool _isUserInteracting = false; 
+    private bool _isUserInteracting = false;
+    private readonly FavoritesRepository _favoritesRepository;
 
     public List<WeatherImage> WeatherImages { get; set; } = new()
     {
@@ -59,14 +62,16 @@ public partial class HomePage : ContentPage
         },
     };
 
-    public HomePage()
+    public HomePage(FavoritesRepository favoritesRepository)
     {
         InitializeComponent();
+        _favoritesRepository = favoritesRepository;
 
         BindingContext = this;
 
         WeatherCarousel.IndicatorView = CarouselIndicators;
-        WeatherCarousel.Position = 0;
+
+        WeatherCarousel.Position = 2;
 
         _timer = Dispatcher.CreateTimer();
         _timer.Interval = TimeSpan.FromSeconds(3);
@@ -85,20 +90,45 @@ public partial class HomePage : ContentPage
         };
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
+        _timer?.Stop();
+
+        if (CarouselLoadingOverlay != null)
+        {
+            CarouselLoadingOverlay.IsVisible = true;
+            CarouselLoadingOverlay.Opacity = 1;
+        }
+
+        await Task.Delay(120);
+
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            if (WeatherImages != null && WeatherImages.Count > 1)
+            {
+                WeatherCarousel.ScrollTo(1, animate: false);
+                await Task.Delay(40);
+                WeatherCarousel.ScrollTo(0, animate: false);
+            }
+
+            if (CarouselLoadingOverlay != null)
+            {
+                await CarouselLoadingOverlay.FadeTo(0, 150);
+                CarouselLoadingOverlay.IsVisible = false;
+            }
+        });
+
+        await Task.Delay(300);
         if (_timer != null && !_timer.IsRunning)
             _timer.Start();
     }
-
     protected override void OnDisappearing()
     {
         _timer?.Stop();
         base.OnDisappearing();
     }
-
 
     private async void FavoriteButton_Clicked(object sender, EventArgs e)
     {
@@ -107,6 +137,8 @@ public partial class HomePage : ContentPage
 
         _favoriteToastCancellation = new CancellationTokenSource();
         var token = _favoriteToastCancellation.Token;
+
+        await LoadFavoriteCitiesAsync();
 
         FavoriteToast.IsVisible = true;
         FavoriteToast.Opacity = 0;
@@ -125,6 +157,19 @@ public partial class HomePage : ContentPage
         }
         catch (TaskCanceledException)
         {
+        }
+    }
+
+    private async Task LoadFavoriteCitiesAsync()
+    {
+        try
+        {
+            var favorites = await _favoritesRepository.GetAllAsync();
+            FavoriteCollectionView.ItemsSource = favorites;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Eroare", ex.Message, "OK");
         }
     }
 
@@ -156,4 +201,8 @@ public partial class HomePage : ContentPage
         await Shell.Current.GoToAsync("///airquality");
     }
 
+    private async void AboutButton_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("about");
+    }
 }

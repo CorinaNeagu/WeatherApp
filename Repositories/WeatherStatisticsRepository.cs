@@ -10,11 +10,16 @@ public class WeatherStatisticsRepository
 {
     private readonly string _databasePath;
 
+
+
     public WeatherStatisticsRepository()
     {
         _databasePath = Path.Combine(
             FileSystem.AppDataDirectory,
             "weather.db");
+
+        System.Diagnostics.Debug.WriteLine(
+       $"DATABASE: {_databasePath}");
     }
 
     private SqliteConnection CreateConnection()

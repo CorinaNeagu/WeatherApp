@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.Views.AboutPage"
-             Title="AboutPage">
+             Title="Despre aplicație">
 
     <Grid>
         <Image
@@ -13,19 +13,201 @@
             VerticalOptions="Fill"
             InputTransparent="True"/>
 
-        <VerticalStackLayout Padding="20" HorizontalOptions="Start" VerticalOptions="Start">
-            <Button
-                Text="← Inapoi"
-                FontSize="14"
-                FontAttributes="Bold"
-                TextColor="#7770C9"
-                BackgroundColor="White"
-                BorderColor="#ECECF3"
-                BorderWidth="1"
-                CornerRadius="14"
-                Padding="18,10"
-                Clicked="BackButton_Clicked"/>
-        </VerticalStackLayout>
-    </Grid>
+        <ScrollView>
+            <VerticalStackLayout
+                Padding="20"
+                Spacing="20">
 
+                <Button
+                    Text="← Înapoi"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    TextColor="#7770C9"
+                    BackgroundColor="White"
+                    BorderColor="#ECECF3"
+                    BorderWidth="1"
+                    CornerRadius="14"
+                    Padding="18,10"
+                    HorizontalOptions="Start"
+                    Clicked="BackButton_Clicked"/>
+
+                <Label
+                    Text="Despre WeatherApp"
+                    FontSize="28"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"/>
+
+                <Label
+                    Text="Informații despre aplicație și funcționalitățile sale"
+                    FontSize="14"
+                    TextColor="AntiqueWhite"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"/>
+
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#ECECF3"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="20">
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label
+                            Text="Ce este WeatherApp?"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <Label
+                            Text="WeatherApp este o aplicație multiplatformă care oferă informații meteorologice pentru diferite orașe. Utilizatorii pot consulta vremea actuală, prognozele, calitatea aerului și pot compara sau analiza date meteorologice."
+                            FontSize="15"
+                            TextColor="#475569"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#ECECF3"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="20">
+
+                    <VerticalStackLayout Spacing="15">
+
+                        <Label
+                            Text="Funcționalități principale"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <BoxView
+                            HeightRequest="1"
+                            Color="#ECECF3"/>
+
+                        <Label
+                            Text="Informații meteorologice"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <Label
+                            Text="Consultarea vremii actuale, a prognozelor meteorologice și a indicatorilor privind calitatea aerului."
+                            FontSize="14"
+                            TextColor="#64748B"/>
+
+                        <Label
+                            Text="Compararea orașelor"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <Label
+                            Text="Compararea condițiilor meteorologice din două orașe selectate de utilizator."
+                            FontSize="14"
+                            TextColor="#64748B"/>
+                        <Label
+                            Text="Personalizare"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <Label
+                            Text="Salvarea orașelor favorite și consultarea, filtrarea sau ștergerea istoricului căutărilor."
+                            FontSize="14"
+                            TextColor="#64748B"/>
+                        
+                        <Label
+                            Text="Statistici meteorologice"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <Label
+                            Text="Vizualizarea și analiza datelor meteorologice prin indicatori, grafice și statistici avansate."
+                            FontSize="14"
+                            TextColor="#64748B"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#ECECF3"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="20">
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label
+                            Text="Tehnologii utilizate"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <Label
+                            Text=".NET MAUI și C# – dezvoltarea aplicației multiplatformă"
+                            FontSize="14"
+                            TextColor="#475569"/>
+
+                        <Label
+                            Text="XAML – realizarea interfeței grafice"
+                            FontSize="14"
+                            TextColor="#475569"/>
+
+                        <Label
+                            Text="SQLite – stocarea persistentă a datelor"
+                            FontSize="14"
+                            TextColor="#475569"/>
+
+                        <Label
+                            Text="HTTP și JSON – comunicarea cu serviciile externe"
+                            FontSize="14"
+                            TextColor="#475569"/>
+
+                        <Label
+                            Text="GraphicsView – reprezentarea grafică a datelor"
+                            FontSize="14"
+                            TextColor="#475569"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#ECECF3"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="20">
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label
+                            Text="Sursa datelor meteorologice"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#172554"/>
+
+                        <Label
+                            Text="WeatherApp utilizează serviciile Open-Meteo pentru obținerea informațiilor despre vreme, prognoză și calitatea aerului."
+                            FontSize="14"
+                            TextColor="#64748B"/>
+
+                        <Button
+                            Text="Vizitează Open-Meteo"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            BackgroundColor="#7770C9"
+                            TextColor="White"
+                            CornerRadius="14"
+                            Padding="18,12"
+                            Clicked="OpenMeteo_Clicked"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
 </ContentPage>

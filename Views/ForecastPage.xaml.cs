@@ -21,7 +21,7 @@ public partial class ForecastPage : ContentPage
     private async void OnForecastClicked(
         object? sender, EventArgs e)
     {
-        string city = CityEntry.Text?.Trim() ?? "";
+        string city = CityBox.Text.Trim();
 
         if (string.IsNullOrWhiteSpace(city))
         {
@@ -40,8 +40,11 @@ public partial class ForecastPage : ContentPage
 
         try
         {
-            List<DailyForecast> forecast =
-                await _weatherApi.GetForecastAsync(city, selectedDays);
+            var selected = CityBox.SelectedCity;
+
+            List<DailyForecast> forecast = selected != null
+                ? await _weatherApi.GetForecastAsync(selected, selectedDays)
+                : await _weatherApi.GetForecastAsync(city, selectedDays);
 
             ForecastList.ItemsSource = forecast;
 
@@ -118,7 +121,9 @@ public class ForecastChartDrawable : IDrawable
 
         canvas.FontSize = 10;
         canvas.FontColor = Colors.Gray;
-        canvas.StrokeColor = Color.FromArgb("#E2E8F0");
+        canvas.StrokeColor = Application.Current?.RequestedTheme == AppTheme.Dark
+            ? Color.FromArgb("#3A3A3A")
+            : Color.FromArgb("#E2E8F0");
         canvas.StrokeSize = 1;
 
         for (int i = 0; i < 4; i++)

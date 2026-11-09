@@ -2,9 +2,9 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WeatherApp.Controls"
     x:Class="WeatherApp.Views.AirQualityPage"
-    Title="Calitatea aerului"
-    BackgroundColor="#F3F6FC">
+    Title="Calitatea aerului">
 
     <ScrollView>
         <VerticalStackLayout Padding="22" Spacing="18">
@@ -12,35 +12,28 @@
             <Label
                 Text="Calitatea aerului"
                 FontSize="28"
-                FontAttributes="Bold"
-                TextColor="#172554"/>
+                FontAttributes="Bold"/>
 
             <Label
                 Text="Verifică nivelul poluării în orașul ales."
-                FontSize="14"
-                TextColor="#64748B"/>
+                StyleClass="Muted"
+                FontSize="14"/>
 
-            <Entry
-                x:Name="CityEntry"
+            <controls:CitySearchBox
+                x:Name="CityBox"
                 Placeholder="Introdu orașul"
-                Text="București"
-                BackgroundColor="White"
-                TextColor="#172554"
-                ClearButtonVisibility="WhileEditing"/>
+                SearchCompleted="OnCheckClicked"/>
 
             <Button
                 Text="Verifică aerul"
                 Clicked="OnCheckClicked"
-                BackgroundColor="#2563EB"
-                TextColor="White"
-                CornerRadius="12"
+                FontSize="16"
                 HeightRequest="50"/>
 
             <ActivityIndicator
                 x:Name="LoadingIndicator"
                 IsVisible="False"
-                IsRunning="False"
-                Color="#2563EB"/>
+                IsRunning="False"/>
 
             <Label
                 x:Name="ErrorLabel"
@@ -48,8 +41,7 @@
                 TextColor="#DC2626"/>
 
             <Border
-                BackgroundColor="White"
-                Stroke="#E2E8F0"
+                StyleClass="Card"
                 StrokeShape="RoundRectangle 20"
                 Padding="20">
 
@@ -58,33 +50,32 @@
                     <Label
                         x:Name="CityLabel"
                         Text="Orașul selectat"
-                        FontSize="16"
-                        TextColor="#64748B"/>
+                        StyleClass="Muted"
+                        FontSize="16"/>
 
                     <Label
                         Text="Indice european AQI"
                         FontSize="18"
-                        FontAttributes="Bold"
-                        TextColor="#172554"/>
+                        FontAttributes="Bold"/>
 
                     <Label
                         x:Name="AqiLabel"
                         Text="--"
                         FontSize="48"
                         FontAttributes="Bold"
-                        TextColor="#2563EB"/>
+                        TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"/>
 
                     <Label
                         Text="Cu cât valoarea este mai mică, cu atât aerul este mai curat."
-                        FontSize="13"
-                        TextColor="#64748B"/>
+                        StyleClass="Muted"
+                        FontSize="13"/>
 
                     <Label
                         x:Name="AqiStatusLabel"
                         Text="Caută un oraș pentru a vedea nivelul."
+                        StyleClass="Body"
                         FontSize="16"
-                        FontAttributes="Bold"
-                        TextColor="#475569"/>
+                        FontAttributes="Bold"/>
 
                 </VerticalStackLayout>
             </Border>
@@ -92,8 +83,7 @@
             <Label
                 Text="Poluanți măsurați"
                 FontSize="21"
-                FontAttributes="Bold"
-                TextColor="#172554"/>
+                FontAttributes="Bold"/>
 
             <Grid
                 ColumnDefinitions="*,*"
@@ -102,8 +92,7 @@
                 RowSpacing="12">
 
                 <Border
-                    BackgroundColor="White"
-                    Stroke="#E2E8F0"
+                    StyleClass="Card"
                     StrokeShape="RoundRectangle 16"
                     Padding="16">
 
@@ -116,19 +105,17 @@
                         <Label
                             x:Name="Pm25Label"
                             Text="-- µg/m³"
-                            FontSize="17"
-                            TextColor="#172554"/>
+                            FontSize="17"/>
                         <Label
                             Text="Particule fine"
-                            FontSize="12"
-                            TextColor="#64748B"/>
+                            StyleClass="Muted"
+                            FontSize="12"/>
                     </VerticalStackLayout>
                 </Border>
 
                 <Border
                     Grid.Column="1"
-                    BackgroundColor="White"
-                    Stroke="#E2E8F0"
+                    StyleClass="Card"
                     StrokeShape="RoundRectangle 16"
                     Padding="16">
 
@@ -141,19 +128,17 @@
                         <Label
                             x:Name="Pm10Label"
                             Text="-- µg/m³"
-                            FontSize="17"
-                            TextColor="#172554"/>
+                            FontSize="17"/>
                         <Label
                             Text="Particule în suspensie"
-                            FontSize="12"
-                            TextColor="#64748B"/>
+                            StyleClass="Muted"
+                            FontSize="12"/>
                     </VerticalStackLayout>
                 </Border>
 
                 <Border
                     Grid.Row="1"
-                    BackgroundColor="White"
-                    Stroke="#E2E8F0"
+                    StyleClass="Card"
                     StrokeShape="RoundRectangle 16"
                     Padding="16">
 
@@ -166,20 +151,18 @@
                         <Label
                             x:Name="No2Label"
                             Text="-- µg/m³"
-                            FontSize="17"
-                            TextColor="#172554"/>
+                            FontSize="17"/>
                         <Label
                             Text="Dioxid de azot"
-                            FontSize="12"
-                            TextColor="#64748B"/>
+                            StyleClass="Muted"
+                            FontSize="12"/>
                     </VerticalStackLayout>
                 </Border>
 
                 <Border
                     Grid.Row="1"
                     Grid.Column="1"
-                    BackgroundColor="White"
-                    Stroke="#E2E8F0"
+                    StyleClass="Card"
                     StrokeShape="RoundRectangle 16"
                     Padding="16">
 
@@ -192,12 +175,11 @@
                         <Label
                             x:Name="OzoneLabel"
                             Text="-- µg/m³"
-                            FontSize="17"
-                            TextColor="#172554"/>
+                            FontSize="17"/>
                         <Label
                             Text="Ozon"
-                            FontSize="12"
-                            TextColor="#64748B"/>
+                            StyleClass="Muted"
+                            FontSize="12"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -205,8 +187,8 @@
 
             <Label
                 Text="Datele sunt furnizate de Open-Meteo. Valorile reflectă estimările disponibile pentru locația selectată."
-                FontSize="12"
-                TextColor="#64748B"/>
+                StyleClass="Muted"
+                FontSize="12"/>
 
         </VerticalStackLayout>
     </ScrollView>

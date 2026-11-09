@@ -417,4 +417,44 @@
         <Setter Property="WaveColor" Value="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
     </Style>
 
+
+    <Style TargetType="Border" Class="Card">
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}" />
+        <Setter Property="Stroke" Value="{StaticResource StrokeCard}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style TargetType="Border" Class="CardAccent">
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light=#DBEAFE, Dark=#1E2D3A}" />
+        <Setter Property="Stroke"
+            Value="{AppThemeBinding Light=#BFDBFE, Dark=#2C4256}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 16" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <Style TargetType="Grid" Class="TableHeader">
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource TableHeaderLight}, Dark={StaticResource TableHeaderDark}}" />
+    </Style>
+
+    <Style TargetType="Label" Class="TableHeaderText">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource TableHeaderTextLight}, Dark={StaticResource White}}" />
+    </Style>
+
+    <Style TargetType="Label" Class="Muted">
+        <Setter Property="TextColor" Value="Gray" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+
+    <Style TargetType="Label" Class="Body">
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light=#475569, Dark={StaticResource Gray200}}" />
+    </Style>
+
 </ResourceDictionary>

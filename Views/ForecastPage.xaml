@@ -2,9 +2,9 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WeatherApp.Controls"
     x:Class="WeatherApp.Views.ForecastPage"
-    Title="Prognoza meteo"
-    BackgroundColor="#F3F6FC">
+    Title="Prognoza meteo">
 
     <ScrollView>
         <VerticalStackLayout Padding="22" Spacing="18">
@@ -12,33 +12,27 @@
             <Label
                 Text="Prognoza meteo"
                 FontSize="28"
-                FontAttributes="Bold"
-                TextColor="#172554"/>
+                FontAttributes="Bold"/>
 
             <Label
                 Text="Descoperă temperaturile pentru zilele următoare."
-                FontSize="14"
-                TextColor="#64748B"/>
+                StyleClass="Muted"
+                FontSize="14"/>
 
-            <Entry
-                x:Name="CityEntry"
+            <controls:CitySearchBox
+                x:Name="CityBox"
                 Placeholder="Introdu orașul (ex. București)"
-                Text="București"
-                BackgroundColor="White"
-                TextColor="#172554"
-                ClearButtonVisibility="WhileEditing"/>
-
+                SearchCompleted="OnForecastClicked"/>
+            
             <Label
                 Text="Alege perioada"
-                FontAttributes="Bold"
-                TextColor="#172554"/>
+                FontAttributes="Bold"/>
 
             <Picker
                 x:Name="DaysPicker"
                 Title="Selectează numărul de zile"
                 SelectedIndex="2"
-                BackgroundColor="White"
-                TextColor="#172554">
+                FontSize="16">
                 <Picker.Items>
                     <x:String>3 zile</x:String>
                     <x:String>5 zile</x:String>
@@ -50,16 +44,13 @@
             <Button
                 Text="Afișează prognoza"
                 Clicked="OnForecastClicked"
-                BackgroundColor="#2563EB"
-                TextColor="White"
-                CornerRadius="12"
+                FontSize="16"
                 HeightRequest="50"/>
 
             <ActivityIndicator
                 x:Name="LoadingIndicator"
                 IsVisible="False"
-                IsRunning="False"
-                Color="#2563EB"/>
+                IsRunning="False"/>
 
             <Label
                 x:Name="ErrorLabel"
@@ -67,8 +58,7 @@
                 TextColor="#DC2626"/>
 
             <Border
-                BackgroundColor="White"
-                Stroke="#E2E8F0"
+                StyleClass="Card"
                 StrokeShape="RoundRectangle 18"
                 Padding="14">
 
@@ -76,8 +66,7 @@
                     <Label
                         Text="Evoluția temperaturilor"
                         FontSize="19"
-                        FontAttributes="Bold"
-                        TextColor="#172554"/>
+                        FontAttributes="Bold"/>
 
                     <Grid
                         ColumnDefinitions="Auto,*"
@@ -91,7 +80,8 @@
                             VerticalOptions="Center"/>
                         <Label
                             Text="Maximă"
-                            TextColor="#475569"
+                            StyleClass="Muted"
+                            FontSize="14"
                             Grid.Column="1"/>
 
                         <BoxView
@@ -102,7 +92,8 @@
                             Grid.Row="1"/>
                         <Label
                             Text="Minimă"
-                            TextColor="#475569"
+                            StyleClass="Muted"
+                            FontSize="14"
                             Grid.Column="1"
                             Grid.Row="1"/>
                     </Grid>
@@ -116,8 +107,7 @@
             <Label
                 Text="Temperaturi pe zile"
                 FontSize="21"
-                FontAttributes="Bold"
-                TextColor="#172554"/>
+                FontAttributes="Bold"/>
 
             <CollectionView
                 x:Name="ForecastList"
@@ -126,9 +116,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
-                            BackgroundColor="White"
-                            Stroke="#E2E8F0"
-                            StrokeShape="RoundRectangle 14"
+                            StyleClass="Card"
                             Padding="14"
                             Margin="0,0,0,9">
 
@@ -139,7 +127,6 @@
                                 <Label
                                     Text="{Binding Date}"
                                     FontAttributes="Bold"
-                                    TextColor="#172554"
                                     VerticalOptions="Center"/>
 
                                 <Label

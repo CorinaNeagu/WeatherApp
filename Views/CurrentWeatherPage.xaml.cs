@@ -18,7 +18,7 @@ public partial class CurrentWeatherPage : ContentPage
 
     private async void OnSearchClicked(object? sender, EventArgs e)
     {
-        string cityName = CityEntry.Text?.Trim() ?? string.Empty;
+        string cityName = CityBox.Text.Trim();
 
         if (string.IsNullOrWhiteSpace(cityName))
         {
@@ -33,8 +33,11 @@ public partial class CurrentWeatherPage : ContentPage
 
         try
         {
-            WeatherData weather =
-                await _weatherSearchService.SearchAndSaveAsync(cityName);
+            var selected = CityBox.SelectedCity;
+
+            WeatherData weather = selected != null
+                ? await _weatherSearchService.SearchAndSaveAsync(selected)
+                : await _weatherSearchService.SearchAndSaveAsync(cityName);
 
             CityLabel.Text = $"{weather.CityName}, {weather.Country}";
             TemperatureLabel.Text = $"{weather.Temperature:0.#} °C";

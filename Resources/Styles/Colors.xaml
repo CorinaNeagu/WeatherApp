@@ -49,4 +49,14 @@
     <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+
+    <Color x:Key="SurfaceDark">#252525</Color>
+    <Color x:Key="TableHeaderLight">#E8EEF4</Color>
+    <Color x:Key="TableHeaderDark">#303B45</Color>
+    <Color x:Key="TableHeaderTextLight">#455A64</Color>
+    <Color x:Key="StrokeSearch">#78909C</Color>
+    <Color x:Key="StrokeCard">#D5DDE5</Color>
+    <Color x:Key="RowSeparator">#E5E9ED</Color>
+    
 </ResourceDictionary>

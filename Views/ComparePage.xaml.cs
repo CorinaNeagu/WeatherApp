@@ -16,8 +16,8 @@ public partial class ComparePage : ContentPage
 
     private async void OnCompareClicked(object? sender, EventArgs e)
     {
-        string city1 = City1Entry.Text?.Trim() ?? string.Empty;
-        string city2 = City2Entry.Text?.Trim() ?? string.Empty;
+        string city1 = City1Box.Text.Trim();
+        string city2 = City2Box.Text.Trim();
 
         if (string.IsNullOrWhiteSpace(city1) || string.IsNullOrWhiteSpace(city2))
         {

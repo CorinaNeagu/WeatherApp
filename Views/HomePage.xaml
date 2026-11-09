@@ -3,8 +3,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="WeatherApp.Pages.HomePage"
-    Title="Home"
-    BackgroundColor="#F7F8FC">
+    Title="Home">
 
     <Grid>
 
@@ -16,10 +15,12 @@
             VerticalOptions="Fill"
             InputTransparent="True"/>
 
-        <Grid RowDefinitions="Auto, Auto, Auto" 
+
+        <ScrollView>
+
+            <Grid RowDefinitions="Auto, Auto, Auto" 
               Padding="28,20" 
-              RowSpacing="14" 
-              VerticalOptions="Center">
+              RowSpacing="14" >
 
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
                 <VerticalStackLayout Spacing="3">
@@ -31,13 +32,12 @@
                         TextColor="#8585A5"/>
 
                     <Label
-                        Text="Buna! ☀️"
+                        Text="Bună! ☀️"
                         FontSize="28"
-                        FontAttributes="Bold"
-                        TextColor="#242638"/>
+                        FontAttributes="Bold"/>
 
                     <Label
-                        Text="Descopera lumea prin vreme."
+                        Text="Descoperă lumea prin vreme."
                         FontSize="13"
                         TextColor="#85899B"/>
                 </VerticalStackLayout>
@@ -50,22 +50,22 @@
                     <Button
                         Text="❤️"
                         FontSize="20"
-                        BorderColor="#ECECF3"
+                        BorderColor="{AppThemeBinding Light=#ECECF3, Dark=#3A3A3A}"
                         BorderWidth="1"
                         CornerRadius="22"
                         WidthRequest="44"
                         HeightRequest="44"
                         Padding="0"
-                        BackgroundColor="White"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource SurfaceDark}}"
                         Clicked="FavoriteButton_Clicked"/>
 
                     <Button
                         Text="🖰 Despre"
                         FontSize="15"
                         FontAttributes="Bold"
-                        TextColor="#7770C9"
-                        BackgroundColor="White"
-                        BorderColor="#ECECF3"
+                        TextColor="{AppThemeBinding Light=#7770C9, Dark={StaticResource PrimaryDark}}"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource SurfaceDark}}"
+                        BorderColor="{AppThemeBinding Light=#ECECF3, Dark=#3A3A3A}"
                         BorderWidth="1"
                         CornerRadius="22"
                         HeightRequest="44"
@@ -77,10 +77,9 @@
             <VerticalStackLayout Grid.Row="1" Spacing="8">
                 <Grid ColumnDefinitions="*,Auto">
                     <Label
-                        Text="Descopera"
+                        Text="Descoperă"
                         FontSize="19"
-                        FontAttributes="Bold"
-                        TextColor="#242638"/>
+                        FontAttributes="Bold"/>
 
                     <Label
                         Grid.Column="1"
@@ -89,6 +88,8 @@
                         TextColor="#9294A5"
                         VerticalOptions="Center"/>
                 </Grid>
+                
+                
 
                 <CarouselView
                     x:Name="WeatherCarousel"
@@ -103,9 +104,7 @@
                             <Grid Padding="0" RowDefinitions="Auto,*">
                                 <Border
                                     Grid.Row="0"
-                                    BackgroundColor="#F2FFFFFF"
-                                    Stroke="#FFFFFF"
-                                    StrokeThickness="1"
+                                    StyleClass="Card"
                                     StrokeShape="RoundRectangle 16"
                                     Padding="10"
                                     HorizontalOptions="End"
@@ -116,12 +115,11 @@
                                         <Label
                                             Text="{Binding Title, StringFormat='💭 {0}'}"
                                             FontSize="13"
-                                            FontAttributes="Bold"
-                                            TextColor="#292B3D"/>
+                                            FontAttributes="Bold"/>
                                         <Label
                                             Text="{Binding Description}"
-                                            FontSize="10"
-                                            TextColor="#626579"/>
+                                            StyleClass="Muted"
+                                            FontSize="10"/>
                                     </VerticalStackLayout>
                                 </Border>
 
@@ -132,9 +130,9 @@
                                     HorizontalOptions="Center"
                                     VerticalOptions="Start"
                                     StrokeThickness="4"
-                                    Stroke="#FFFFFF"
+                                    Stroke="{AppThemeBinding Light=#FFFFFF, Dark=#252525}"
                                     StrokeShape="Ellipse"
-                                    BackgroundColor="#D9DCEC">
+                                    BackgroundColor="{AppThemeBinding Light=#D9DCEC, Dark=#303B45}">
 
                                     <Image
                                         Source="{Binding Image}"
@@ -177,17 +175,16 @@
                 <IndicatorView
                     x:Name="CarouselIndicators"
                     HorizontalOptions="Center"
-                    IndicatorColor="#D5D6E1"
+                    IndicatorColor="{AppThemeBinding Light=#D5D6E1, Dark=#4A4A55}"
                     SelectedIndicatorColor="#7770C9"
                     IndicatorSize="7"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="2" Spacing="10">
                 <Label
-                    Text="Exploreaza aplicatia"
+                    Text="Explorează aplicația"
                     FontSize="19"
-                    FontAttributes="Bold"
-                    TextColor="#242638"/>
+                    FontAttributes="Bold"/>
 
                 <Grid
                     ColumnDefinitions="*,*"
@@ -195,47 +192,47 @@
                     ColumnSpacing="11"
                     RowSpacing="11">
 
-                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="White" Stroke="#ECECF3" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="14">
+                    <Border Grid.Row="0" Grid.Column="0" StyleClass="Card" StrokeShape="RoundRectangle 16" Padding="14">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="CurrentWeatherCard_Tapped"/>
                         </Border.GestureRecognizers>
                         <VerticalStackLayout Spacing="6">
                             <Label Text="☀️" FontSize="22"/>
-                            <Label Text="Vremea actuala" FontSize="14" FontAttributes="Bold" TextColor="#292B3D"/>
-                            <Label Text="Conditii meteo" FontSize="11" TextColor="#9294A5"/>
+                            <Label Text="Vremea actuală" FontSize="14" FontAttributes="Bold"/>
+                            <Label Text="Condiții meteo" FontSize="11" TextColor="#9294A5"/>
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White" Stroke="#ECECF3" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="14">
+                    <Border Grid.Row="0" Grid.Column="1" StyleClass="Card" StrokeShape="RoundRectangle 16" Padding="14">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="StatisticsCard_Tapped"/>
                         </Border.GestureRecognizers>
                         <VerticalStackLayout Spacing="6">
                             <Label Text="📊" FontSize="22"/>
-                            <Label Text="Statistici meteo" FontSize="14" FontAttributes="Bold" TextColor="#292B3D"/>
-                            <Label Text="Grafice si analize" FontSize="11" TextColor="#9294A5"/>
+                            <Label Text="Statistici meteo" FontSize="14" FontAttributes="Bold"/>
+                            <Label Text="Grafice și analize" FontSize="11" TextColor="#9294A5"/>
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Stroke="#ECECF3" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="14">
+                    <Border Grid.Row="1" Grid.Column="0" StyleClass="Card" StrokeShape="RoundRectangle 16" Padding="14">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ForecastCard_Tapped"/>
                         </Border.GestureRecognizers>
                         <VerticalStackLayout Spacing="6">
                             <Label Text="🌤️" FontSize="22"/>
-                            <Label Text="Prognoza meteo" FontSize="14" FontAttributes="Bold" TextColor="#292B3D"/>
+                            <Label Text="Prognoza meteo" FontSize="14" FontAttributes="Bold"/>
                             <Label Text="Prognoza pe zile" FontSize="11" TextColor="#9294A5"/>
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White" Stroke="#ECECF3" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="14">
+                    <Border Grid.Row="1" Grid.Column="1" StyleClass="Card" StrokeShape="RoundRectangle 16" Padding="14">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="AirQualityCard_Tapped"/>
                         </Border.GestureRecognizers>
                         <VerticalStackLayout Spacing="6">
                             <Label Text="🌿" FontSize="22"/>
-                            <Label Text="Conditii de mediu" FontSize="14" FontAttributes="Bold" TextColor="#292B3D"/>
-                            <Label Text="Informatii de mediu" FontSize="11" TextColor="#9294A5"/>
+                            <Label Text="Condiții de mediu" FontSize="14" FontAttributes="Bold"/>
+                            <Label Text="Informații de mediu" FontSize="11" TextColor="#9294A5"/>
                         </VerticalStackLayout>
                     </Border>
 
@@ -243,7 +240,7 @@
             </VerticalStackLayout>
 
         </Grid>
-
+        </ScrollView>
         <Grid
             x:Name="FavoriteToast"
             IsVisible="False"
@@ -259,9 +256,7 @@
             </Grid.GestureRecognizers>
 
             <Border
-                BackgroundColor="White"
-                Stroke="#ECECF3"
-                StrokeThickness="1"
+                StyleClass="Card"
                 StrokeShape="RoundRectangle 20"
                 Padding="30"
                 WidthRequest="280"
@@ -270,22 +265,22 @@
 
                 <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
                     <Label Text="❤️" FontSize="42" HorizontalTextAlignment="Center"/>
-                    <Label Text="Favorite" FontSize="22" FontAttributes="Bold" TextColor="#263445" HorizontalTextAlignment="Center"/>
-                    <Label Text="Orașele tale preferate" FontSize="14" TextColor="Gray" HorizontalTextAlignment="Center"/>
+                    <Label Text="Favorite" FontSize="22" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                    <Label Text="Orașele tale preferate" StyleClass="Muted" FontSize="14" HorizontalTextAlignment="Center"/>
 
                     <CollectionView
                         x:Name="FavoriteCollectionView"
                         HeightRequest="180"
                         SelectionMode="None">
                         <CollectionView.EmptyView>
-                            <Label Text="Nu ai adăugat încă orașe favorite." TextColor="Gray" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Label Text="Nu ai adăugat încă orașe favorite." StyleClass="Muted" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                         </CollectionView.EmptyView>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Border BackgroundColor="#F3F6FC" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="12" Margin="0,3">
+                                <Border BackgroundColor="{AppThemeBinding Light=#F3F6FC, Dark=#2F2F2F}" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="12" Margin="0,3">
                                     <VerticalStackLayout Spacing="3">
-                                        <Label Text="{Binding CityName}" FontSize="16" FontAttributes="Bold" TextColor="#263445"/>
-                                        <Label Text="{Binding Country}" FontSize="12" TextColor="Gray"/>
+                                        <Label Text="{Binding CityName}" FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Country}" StyleClass="Muted" FontSize="12"/>
                                     </VerticalStackLayout>
                                 </Border>
                             </DataTemplate>
@@ -297,7 +292,7 @@
 
         <Grid x:Name="CarouselLoadingOverlay"
               IsVisible="False"
-              BackgroundColor="#80F7F8FC"
+              BackgroundColor="{AppThemeBinding Light=#80F7F8FC, Dark=#8017171A}"
               HorizontalOptions="Fill"
               VerticalOptions="Fill"
               ZIndex="5">
@@ -308,4 +303,5 @@
         </Grid>
 
     </Grid>
+       
 </ContentPage>

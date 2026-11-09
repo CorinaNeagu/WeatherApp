@@ -51,7 +51,7 @@ public partial class FavoritesPage : ContentPage
     private async void OnAddClicked(
         object sender, EventArgs e)
     {
-        string cityName = CityEntry.Text?.Trim() ?? "";
+        string cityName = CityBox.Text.Trim();
 
         if (string.IsNullOrWhiteSpace(cityName))
         {
@@ -71,14 +71,17 @@ public partial class FavoritesPage : ContentPage
 
         try
         {
-            // Verificăm orașul prin Open-Meteo.
-            var weather =
-                await _weatherApi.GetCurrentWeatherAsync(cityName);
+            // Verificam orașul prin Open-Meteo.
+            var selected = CityBox.SelectedCity;
 
-            // Salvăm orașul în SQLite.
+            var weather = selected != null
+                ? await _weatherApi.GetCurrentWeatherAsync(selected)
+                : await _weatherApi.GetCurrentWeatherAsync(cityName);
+
+            // Salvam orașul în SQLite.
             await _favoritesRepository.AddAsync(weather);
 
-            CityEntry.Text = "";
+            CityBox.Text = "";
 
             await LoadFavoritesAsync();
         }
@@ -98,6 +101,8 @@ public partial class FavoritesPage : ContentPage
             if (sender is Button)
                 ((Button)sender).IsEnabled = true;
         }
+
+
 
     }
 

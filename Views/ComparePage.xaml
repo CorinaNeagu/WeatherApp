@@ -2,131 +2,93 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WeatherApp.Controls"
     x:Class="WeatherApp.Views.ComparePage"
-    Title="Compară orașe"
-    BackgroundColor="#F3F6FC">
+    Title="Compară orașe">
 
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="22">
 
-            <Label
-                Text="Compară orașe"
-                FontSize="28"
-                FontAttributes="Bold"
-                TextColor="#172554" />
+            <Label Text="Compară orașe"
+                   FontSize="28"
+                   FontAttributes="Bold" />
 
-            <Label
-                Text="Alege două orașe și vezi diferențele dintre ele."
-                FontSize="15"
-                TextColor="#64748B" />
+            <Label Text="Alege două orașe și vezi diferențele dintre ele."
+                   StyleClass="Muted"
+                   FontSize="15" />
 
-            <Border
-                BackgroundColor="White"
-                Stroke="#DCE3EF"
-                StrokeThickness="1"
-                Padding="12"
-                StrokeShape="RoundRectangle 16">
+            <VerticalStackLayout Spacing="10">
 
-                <VerticalStackLayout Spacing="10">
-                    <Entry
-                        x:Name="City1Entry"
-                        Placeholder="Primul oraș..."
-                        TextColor="#172554"
-                        PlaceholderColor="#94A3B8"
-                        BackgroundColor="White" />
+                <controls:CitySearchBox x:Name="City1Box"
+                                        Placeholder="Primul oraș..." />
 
-                    <Entry
-                        x:Name="City2Entry"
-                        Placeholder="Al doilea oraș..."
-                        TextColor="#172554"
-                        PlaceholderColor="#94A3B8"
-                        BackgroundColor="White"
-                        ReturnType="Search"
-                        Completed="OnCompareClicked" />
+                <controls:CitySearchBox x:Name="City2Box"
+                                        Placeholder="Al doilea oraș..."
+                                        SearchCompleted="OnCompareClicked" />
 
-                    <Button
-                        Text="Compară"
+                <Button Text="Compară"
                         Clicked="OnCompareClicked"
-                        BackgroundColor="#2563EB"
-                        TextColor="White"
-                        CornerRadius="12"
+                        FontSize="16"
                         Padding="18,12" />
-                </VerticalStackLayout>
-            </Border>
 
-            <ActivityIndicator
-                x:Name="LoadingIndicator"
-                IsRunning="False"
-                IsVisible="False"
-                Color="#2563EB" />
+            </VerticalStackLayout>
 
-            <Label
-                x:Name="ErrorLabel"
-                IsVisible="False"
-                TextColor="#DC2626" />
+            <ActivityIndicator x:Name="LoadingIndicator"
+                               IsRunning="False"
+                               IsVisible="False" />
+
+            <Label x:Name="ErrorLabel"
+                   IsVisible="False"
+                   TextColor="#DC2626" />
 
             <!-- Rezumatul comparatiei -->
-            <Border
-                x:Name="SummaryCard"
-                IsVisible="False"
-                BackgroundColor="#DBEAFE"
-                Stroke="#BFDBFE"
-                StrokeThickness="1"
-                Padding="16"
-                StrokeShape="RoundRectangle 16">
-                <Label
-                    x:Name="SummaryLabel"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    TextColor="#172554"
-                    HorizontalTextAlignment="Center" />
+            <Border x:Name="SummaryCard"
+                    StyleClass="CardAccent"
+                    IsVisible="False">
+                <Label x:Name="SummaryLabel"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center" />
             </Border>
 
             <!-- Cele doua carduri, unul langa altul -->
-            <Grid
-                x:Name="ResultsGrid"
-                IsVisible="False"
-                ColumnDefinitions="*,*"
-                ColumnSpacing="12">
+            <Grid x:Name="ResultsGrid"
+                  IsVisible="False"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="12">
 
-                <Border
-                    BackgroundColor="White"
-                    Stroke="#E2E8F0"
-                    StrokeThickness="1"
-                    Padding="14"
-                    StrokeShape="RoundRectangle 20">
+                <Border StyleClass="Card"
+                        Padding="14"
+                        StrokeShape="RoundRectangle 20">
                     <VerticalStackLayout Spacing="10">
                         <Label x:Name="City1Label" FontSize="17" FontAttributes="Bold"
-                               TextColor="#172554" HorizontalOptions="Center"
+                               HorizontalOptions="Center"
                                HorizontalTextAlignment="Center" />
                         <Label x:Name="Temp1Label" FontSize="32" FontAttributes="Bold"
-                               TextColor="#2563EB" HorizontalOptions="Center" />
-                        <Label x:Name="Condition1Label" FontSize="14" TextColor="#475569"
+                               TextColor="#512BD2" HorizontalOptions="Center" />
+                        <Label x:Name="Condition1Label" StyleClass="Muted" FontSize="14"
                                HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                        <Label x:Name="Feels1Label" TextColor="#172554" />
-                        <Label x:Name="Humidity1Label" TextColor="#172554" />
-                        <Label x:Name="Wind1Label" TextColor="#172554" />
+                        <Label x:Name="Feels1Label" />
+                        <Label x:Name="Humidity1Label" />
+                        <Label x:Name="Wind1Label" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border
-                    Grid.Column="1"
-                    BackgroundColor="White"
-                    Stroke="#E2E8F0"
-                    StrokeThickness="1"
-                    Padding="14"
-                    StrokeShape="RoundRectangle 20">
+                <Border Grid.Column="1"
+                        StyleClass="Card"
+                        Padding="14"
+                        StrokeShape="RoundRectangle 20">
                     <VerticalStackLayout Spacing="10">
                         <Label x:Name="City2Label" FontSize="17" FontAttributes="Bold"
-                               TextColor="#172554" HorizontalOptions="Center"
+                               HorizontalOptions="Center"
                                HorizontalTextAlignment="Center" />
                         <Label x:Name="Temp2Label" FontSize="32" FontAttributes="Bold"
-                               TextColor="#2563EB" HorizontalOptions="Center" />
-                        <Label x:Name="Condition2Label" FontSize="14" TextColor="#475569"
+                               TextColor="#512BD2" HorizontalOptions="Center" />
+                        <Label x:Name="Condition2Label" StyleClass="Muted" FontSize="14"
                                HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                        <Label x:Name="Feels2Label" TextColor="#172554" />
-                        <Label x:Name="Humidity2Label" TextColor="#172554" />
-                        <Label x:Name="Wind2Label" TextColor="#172554" />
+                        <Label x:Name="Feels2Label" />
+                        <Label x:Name="Humidity2Label" />
+                        <Label x:Name="Wind2Label" />
                     </VerticalStackLayout>
                 </Border>
             </Grid>

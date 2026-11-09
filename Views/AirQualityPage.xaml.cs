@@ -15,7 +15,7 @@ public partial class AirQualityPage : ContentPage
 
     private async void OnCheckClicked(object? sender, EventArgs e)
     {
-        string city = CityEntry.Text?.Trim() ?? "";
+        string city = CityBox.Text.Trim();
 
         if (string.IsNullOrWhiteSpace(city))
         {
@@ -30,7 +30,12 @@ public partial class AirQualityPage : ContentPage
 
         try
         {
-            var data = await _weatherApi.GetAirQualityAsync(city);
+
+            var selected = CityBox.SelectedCity;
+
+            var data = selected != null
+                ? await _weatherApi.GetAirQualityAsync(selected)
+                : await _weatherApi.GetAirQualityAsync(city);
 
             CityLabel.Text = data.City;
             AqiLabel.Text = data.EuropeanAqi.ToString("F0");

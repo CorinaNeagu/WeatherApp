@@ -3,9 +3,9 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WeatherApp.Controls"
     x:Class="WeatherApp.Views.FavoritesPage"
-    Title="Orașe favorite"
-    BackgroundColor="#F3F6FC">
+    Title="Orașe favorite">
 
     <Grid Padding="20"
           RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
@@ -16,39 +16,33 @@
             <Label
                 Text="Orașe favorite"
                 FontSize="28"
-                FontAttributes="Bold"
-                TextColor="#172554" />
+                FontAttributes="Bold" />
 
             <Label
                 Text="Salvează orașele pe care le preferi."
-                FontSize="14"
-                TextColor="#64748B" />
+                StyleClass="Muted"
+                FontSize="14" />
 
         </VerticalStackLayout>
 
-        <Entry
+        <controls:CitySearchBox
             Grid.Row="1"
-            x:Name="CityEntry"
+            x:Name="CityBox"
             Placeholder="Introdu un oraș..."
-            TextColor="#172554"
-            PlaceholderColor="#94A3B8"
-            BackgroundColor="White" />
-
+            SearchCompleted="OnAddClicked" />
+        
         <Button
             Grid.Row="2"
             x:Name="AddButton"
             Text="Adaugă la favorite"
             Clicked="OnAddClicked"
-            BackgroundColor="#2563EB"
-            TextColor="White"
-            CornerRadius="12" />
+            FontSize="16" />
 
         <Label
             Grid.Row="3"
             x:Name="CountLabel"
             Text="0 orașe favorite"
-            FontAttributes="Bold"
-            TextColor="#172554" />
+            FontAttributes="Bold" />
 
         <CollectionView
             Grid.Row="4"
@@ -58,7 +52,8 @@
             <CollectionView.EmptyView>
                 <Label
                     Text="Nu ai adăugat încă orașe favorite."
-                    TextColor="#64748B"
+                    StyleClass="Muted"
+                    FontSize="14"
                     HorizontalOptions="Center"
                     VerticalOptions="Center" />
             </CollectionView.EmptyView>
@@ -67,9 +62,7 @@
                 <DataTemplate>
 
                     <Border
-                        BackgroundColor="White"
-                        Stroke="#E2E8F0"
-                        StrokeShape="RoundRectangle 16"
+                        StyleClass="Card"
                         Padding="15"
                         Margin="0,0,0,10">
 
@@ -80,13 +73,11 @@
                                 <Label
                                     Text="{Binding CityName}"
                                     FontSize="19"
-                                    FontAttributes="Bold"
-                                    TextColor="#172554" />
+                                    FontAttributes="Bold" />
 
                                 <Label
                                     Text="{Binding Country}"
-                                    FontSize="13"
-                                    TextColor="#64748B" />
+                                    StyleClass="Muted" />
 
                             </VerticalStackLayout>
 
@@ -96,8 +87,6 @@
                                     Text="Vezi vremea"
                                     CommandParameter="{Binding CityName}"
                                     Clicked="OnWeatherClicked"
-                                    BackgroundColor="#2563EB"
-                                    TextColor="White"
                                     CornerRadius="10" />
 
                                 <Button
@@ -124,7 +113,6 @@
             x:Name="LoadingIndicator"
             IsRunning="False"
             IsVisible="False"
-            Color="#2563EB"
             HorizontalOptions="Center" />
 
     </Grid>

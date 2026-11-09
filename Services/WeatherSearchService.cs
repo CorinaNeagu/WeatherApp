@@ -43,6 +43,18 @@ public class WeatherSearchService
         return weather;
     }
 
+    public async Task<WeatherData> SearchAndSaveAsync(CitySearchResult city)
+    {
+        await _historyRepository.InitializeAsync();
+
+        WeatherData weather =
+            await _weatherApi.GetCurrentWeatherAsync(city);
+
+        await _historyRepository.SaveAsync(weather);
+
+        return weather;
+    }
+
     public async Task<List<WeatherSearchHistory>> GetHistoryAsync()
     {
         await _historyRepository.InitializeAsync();

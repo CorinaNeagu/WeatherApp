@@ -16,9 +16,6 @@ public partial class StatisticsPage : ContentPage
     private CancellationTokenSource? _searchCancellation;
     private bool _isSelectingCity = false;
 
-    // ==========================================
-    // ISTORICUL CĂUTĂRILOR (IMPLEMENTAT CORECT)
-    // ==========================================
     private List<SearchHistoryItem> _searchHistory = new();
 
     private void SaveToHistory(CitySearchResult city, int days)
@@ -260,7 +257,6 @@ public partial class StatisticsPage : ContentPage
             _ => 7
         };
 
-        // Salvăm automat în istoric la fiecare încărcare cu succes
         SaveToHistory(_selectedCity, days);
 
         try
@@ -364,10 +360,6 @@ public partial class StatisticsPage : ContentPage
         TemperatureBoxPlot.Invalidate();
     }
 }
-
-// ==========================================
-// CLASELE AUXILIARE ȘI DE DESENARE (EXTERNE)
-// ==========================================
 
 public class SearchHistoryItem
 {

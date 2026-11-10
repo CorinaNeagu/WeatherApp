@@ -1,4 +1,5 @@
 
+using WeatherApp.Models;
 using WeatherApp.Repositories;
 using WeatherApp.Services;
 
@@ -14,12 +15,10 @@ public partial class FavoritesPage : ContentPage
         WeatherAPIService weatherApi)
     {
         InitializeComponent();
-
         _favoritesRepository = favoritesRepository;
         _weatherApi = weatherApi;
     }
 
-    // Încărcăm favoritele când deschidem pagina.
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -30,123 +29,115 @@ public partial class FavoritesPage : ContentPage
     {
         try
         {
-            var favorites =
-                await _favoritesRepository.GetAllAsync();
+            var favorites = await _favoritesRepository.GetAllAsync();
 
             FavoritesCollectionView.ItemsSource = favorites;
-
-            CountLabel.Text =
-                $"{favorites.Count} orașe favorite";
+            CountLabel.Text = $"{favorites.Count} orașe favorite";
         }
         catch (Exception ex)
         {
-            await DisplayAlert(
-                "Eroare",
-                ex.Message,
-                "OK");
+            await DisplayAlert("Eroare", ex.Message, "OK");
         }
     }
-
-    // Adăugăm un oraș.
-    private async void OnAddClicked(
-        object sender, EventArgs e)
+    private async void OnAddClicked(object sender, EventArgs e)
     {
-        string cityName = CityBox.Text.Trim();
+        string cityName = "";
 
-        if (string.IsNullOrWhiteSpace(cityName))
+        if (CityEntry.Text != null)
+            cityName = CityEntry.Text.Trim();
+
+        if (cityName == "")
         {
-            await DisplayAlert(
-                "Atenție",
-                "Introdu numele unui oraș.",
-                "OK");
-
+            await DisplayAlert("Atenție", "Introdu un oraș.", "OK");
             return;
         }
-
-        LoadingIndicator.IsVisible = true;
-        LoadingIndicator.IsRunning = true;
-
-        if (sender is Button button)
-            button.IsEnabled = false;
-
-        try
-        {
-            // Verificam orașul prin Open-Meteo.
-            var selected = CityBox.SelectedCity;
-
-            var weather = selected != null
-                ? await _weatherApi.GetCurrentWeatherAsync(selected)
-                : await _weatherApi.GetCurrentWeatherAsync(cityName);
-
-            // Salvam orașul în SQLite.
-            await _favoritesRepository.AddAsync(weather);
-
-            CityBox.Text = "";
-
-            await LoadFavoritesAsync();
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert(
-                "Eroare",
-                ex.Message,
-                "OK");
-        }
-
-        finally
-        {
-            LoadingIndicator.IsRunning = false;
-            LoadingIndicator.IsVisible = false;
-
-            if (sender is Button)
-                ((Button)sender).IsEnabled = true;
-        }
-
-
-
-    }
-
-    // Ștergem orașul selectat.
-    private async void OnDeleteClicked(
-        object sender, EventArgs e)
-    {
-        if (sender is not Button button ||
-            button.CommandParameter is not int id)
-            return;
-
-        bool confirm = await DisplayAlert(
-            "Confirmare",
-            "Dorești să ștergi acest oraș din favorite?",
-            "Da",
-            "Nu");
-
-        if (!confirm)
-            return;
-
-        try
-        {
-            await _favoritesRepository.DeleteAsync(id);
-
-            await LoadFavoritesAsync();
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert(
-                "Eroare",
-                ex.Message,
-                "OK");
-        }
-    }
-
-
-    private async void OnWeatherClicked(object sender, EventArgs e)
-    {
-        Button button = (Button)sender;
-        string cityName = button.CommandParameter.ToString() ?? "";
 
         try
         {
             var weather = await _weatherApi.GetCurrentWeatherAsync(cityName);
+            bool added = await _favoritesRepository.AddAsync(weather);
+
+            if (added)
+            {
+                CityEntry.Text = "";
+                await LoadFavoritesAsync();
+            }
+            else
+            {
+                await DisplayAlert("Atenție", "Orașul există deja în favorite.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Eroare", ex.Message, "OK");
+        }
+    }
+    private async void OnUpdateWeatherClicked(object sender, EventArgs e)
+    {
+        Button button = sender as Button;
+        if (button == null)
+            return;
+
+        FavoriteCity city = button.BindingContext as FavoriteCity;
+        if (city == null)
+            return;
+
+        try
+        {
+            var weather = await _weatherApi.GetCurrentWeatherAsync(city.CityName);
+
+            await _favoritesRepository.UpdateWeatherAsync(
+                city.Id, weather.Temperature);
+
+            await LoadFavoritesAsync();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Eroare", ex.Message, "OK");
+        }
+    }
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        Button button = sender as Button;
+        if (button == null)
+            return;
+
+        FavoriteCity city = button.BindingContext as FavoriteCity;
+        if (city == null)
+            return;
+
+        bool confirm = await DisplayAlert(
+            "Confirmare",
+            "Dorești să ștergi acest oraș?",
+            "Da", "Nu");
+
+        if (confirm)
+        {
+            try
+            {
+                await _favoritesRepository.DeleteAsync(city.Id);
+                await LoadFavoritesAsync();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Eroare", ex.Message, "OK");
+            }
+        }
+    }
+
+    private async void OnWeatherClicked(object sender, EventArgs e)
+    {
+        Button button = sender as Button;
+        if (button == null)
+            return;
+
+        FavoriteCity city = button.BindingContext as FavoriteCity;
+        if (city == null)
+            return;
+
+        try
+        {
+            var weather = await _weatherApi.GetCurrentWeatherAsync(city.CityName);
 
             await DisplayAlert(
                 $"Vremea în {weather.CityName}",
@@ -160,5 +151,4 @@ public partial class FavoritesPage : ContentPage
             await DisplayAlert("Eroare", ex.Message, "OK");
         }
     }
-
 }

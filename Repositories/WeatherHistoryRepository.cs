@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-/*
-namespace WeatherApp.Repositories
-{
-    internal class WeatherHistoryRepository
-    {
-    }
-}*/
-
 using Microsoft.Data.Sqlite;
 using WeatherApp.Models;
 

@@ -93,7 +93,7 @@
                  Size="{StaticResource IconSize}" />
 
     <FontImageSource x:Key="IconFavorites"
-             Glyph="{x:Static f:FluentUI.history_24_regular}"
+             Glyph="{x:Static f:FluentUI.heart_24_regular}"
              FontFamily="{x:Static f:FluentUI.FontFamily}"
              Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
              Size="{StaticResource IconSize}" />

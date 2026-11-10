@@ -4,15 +4,6 @@ using System.Text;
 using WeatherApp.Models;
 using WeatherApp.Repositories;
 
-/*
-namespace WeatherApp.Services
-{
-    internal class WeatherSearchService
-    {
-    }
-}
-*/
-
 namespace WeatherApp.Services;
 
 public class WeatherSearchService

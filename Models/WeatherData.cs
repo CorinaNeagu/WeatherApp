@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-/*
-namespace WeatherApp.Models
-
-internal class WeatherData
-{
-}
-
-*/
 
 namespace WeatherApp.Models;
 

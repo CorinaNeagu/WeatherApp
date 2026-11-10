@@ -19,7 +19,6 @@ public partial class HistoryPage : ContentPage
         SortPicker.SelectedIndex = 0;
     }
 
-    // Încărcăm istoricul când deschidem pagina.
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -42,7 +41,6 @@ public partial class HistoryPage : ContentPage
         }
     }
 
-    // Filtrare după oraș și sortare.
     private void ApplyFilters()
     {
         var result = _history.AsEnumerable();
@@ -76,7 +74,6 @@ public partial class HistoryPage : ContentPage
         ApplyFilters();
     }
 
-    // Ștergerea tuturor căutărilor.
     private async void OnClearHistoryClicked(
         object sender, EventArgs e)
     {

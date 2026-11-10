@@ -4,16 +4,6 @@ using System.Net.Http;
 using System.Text.Json;
 using WeatherApp.Models;
 
-/*
-namespace WeatherApp.Services
-{
-    internal class WeatherAPIService
-    {
-    }
-}*/
-
-
-
 namespace WeatherApp.Services;
 
 public class WeatherAPIService

@@ -3,12 +3,12 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:WeatherApp.Controls"
     x:Class="WeatherApp.Views.FavoritesPage"
-    Title="Orașe favorite">
+    Title="Orașe favorite"
+    BackgroundColor="{AppThemeBinding Light=#F3F6FC, Dark=#17171A}">
 
     <Grid Padding="20"
-          RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+          RowDefinitions="Auto,Auto,Auto,Auto,*"
           RowSpacing="15">
 
         <VerticalStackLayout Grid.Row="0" Spacing="5">
@@ -16,33 +16,38 @@
             <Label
                 Text="Orașe favorite"
                 FontSize="28"
-                FontAttributes="Bold" />
+                FontAttributes="Bold"
+                TextColor="{AppThemeBinding Light=#172554, Dark=White}" />
 
             <Label
-                Text="Salvează orașele pe care le preferi."
-                StyleClass="Muted"
-                FontSize="14" />
+                Text="Salvează orașele și urmărește schimbările de temperatură."
+                FontSize="14"
+                TextColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}" />
 
         </VerticalStackLayout>
 
-        <controls:CitySearchBox
+        <Entry
             Grid.Row="1"
-            x:Name="CityBox"
+            x:Name="CityEntry"
             Placeholder="Introdu un oraș..."
-            SearchCompleted="OnAddClicked" />
-        
+            TextColor="{AppThemeBinding Light=#172554, Dark=White}"
+            PlaceholderColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}"
+            BackgroundColor="{AppThemeBinding Light=White, Dark=#252525}" />
+
         <Button
             Grid.Row="2"
-            x:Name="AddButton"
             Text="Adaugă la favorite"
             Clicked="OnAddClicked"
-            FontSize="16" />
+            BackgroundColor="#2563EB"
+            TextColor="White"
+            CornerRadius="12" />
 
         <Label
             Grid.Row="3"
             x:Name="CountLabel"
             Text="0 orașe favorite"
-            FontAttributes="Bold" />
+            FontAttributes="Bold"
+            TextColor="{AppThemeBinding Light=#172554, Dark=White}" />
 
         <CollectionView
             Grid.Row="4"
@@ -52,50 +57,109 @@
             <CollectionView.EmptyView>
                 <Label
                     Text="Nu ai adăugat încă orașe favorite."
-                    StyleClass="Muted"
-                    FontSize="14"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
+                    TextColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}"
+                    HorizontalOptions="Center" />
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
 
                     <Border
-                        StyleClass="Card"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=#252525}"
+                        Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#3A3A3A}"
+                        StrokeShape="RoundRectangle 16"
                         Padding="15"
-                        Margin="0,0,0,10">
+                        Margin="0,0,0,12">
 
-                        <VerticalStackLayout Spacing="12">
+                        <VerticalStackLayout Spacing="10">
 
-                            <VerticalStackLayout Spacing="5">
+                            <Label
+                                Text="{Binding CityName}"
+                                FontSize="19"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#172554, Dark=White}" />
 
-                                <Label
-                                    Text="{Binding CityName}"
-                                    FontSize="19"
-                                    FontAttributes="Bold" />
+                            <Label
+                                Text="{Binding Country}"
+                                TextColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}" />
 
-                                <Label
-                                    Text="{Binding Country}"
-                                    StyleClass="Muted" />
+                            <Grid ColumnDefinitions="*,*"
+                                  ColumnSpacing="10">
 
-                            </VerticalStackLayout>
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="5">
 
-                            <HorizontalStackLayout Spacing="10">
+                                    <Label
+                                        Text="Temperatura anterioară"
+                                        TextColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}" />
+
+                                    <Label
+                                        Text="{Binding PreviousTemperatureText}"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        TextColor="{AppThemeBinding Light=#172554, Dark=White}" />
+
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="5">
+
+                                    <Label
+                                        Text="Ultima temperatură"
+                                        TextColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}" />
+
+                                    <Label
+                                        Text="{Binding LastTemperatureText}"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        TextColor="{AppThemeBinding Light=#2563EB, Dark=#93C5FD}" />
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                            <Label
+                                Text="{Binding TrendText}"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#6D28D9, Dark=#C4B5FD}" />
+
+                            <Label
+                                Text="{Binding PreviousCheckedText}"
+                                TextColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}"
+                                FontSize="12" />
+
+                            <Label
+                                Text="{Binding LastCheckedText}"
+                                TextColor="{AppThemeBinding Light=#64748B, Dark=#C8C8C8}"
+                                FontSize="12" />
+
+                            <HorizontalStackLayout Spacing="8">
+
+                                <Button
+                                    Text="Actualizează"
+                                    Clicked="OnUpdateWeatherClicked"
+                                    BackgroundColor="#7770C9"
+                                    TextColor="White"
+                                    FontSize="13"
+                                    Padding="12,8" />
 
                                 <Button
                                     Text="Vezi vremea"
-                                    CommandParameter="{Binding CityName}"
                                     Clicked="OnWeatherClicked"
-                                    CornerRadius="10" />
+                                    BackgroundColor="#2563EB"
+                                    TextColor="White"
+                                    FontSize="13"
+                                    Padding="12,8" />
 
                                 <Button
                                     Text="Șterge"
-                                    CommandParameter="{Binding Id}"
                                     Clicked="OnDeleteClicked"
                                     BackgroundColor="#DC2626"
                                     TextColor="White"
-                                    CornerRadius="10" />
+                                    FontSize="13"
+                                    Padding="12,8" />
 
                             </HorizontalStackLayout>
 
@@ -107,13 +171,6 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-
-        <ActivityIndicator
-            Grid.Row="5"
-            x:Name="LoadingIndicator"
-            IsRunning="False"
-            IsVisible="False"
-            HorizontalOptions="Center" />
 
     </Grid>
 </ContentPage>

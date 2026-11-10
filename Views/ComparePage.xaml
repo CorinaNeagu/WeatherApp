@@ -41,7 +41,6 @@
                    IsVisible="False"
                    TextColor="#DC2626" />
 
-            <!-- Rezumatul comparatiei -->
             <Border x:Name="SummaryCard"
                     StyleClass="CardAccent"
                     IsVisible="False">
@@ -51,7 +50,6 @@
                        HorizontalTextAlignment="Center" />
             </Border>
 
-            <!-- Cele doua carduri, unul langa altul -->
             <Grid x:Name="ResultsGrid"
                   IsVisible="False"
                   ColumnDefinitions="*,*"

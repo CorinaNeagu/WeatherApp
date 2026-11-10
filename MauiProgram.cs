@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui;
+﻿
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Toolkit.Hosting;
 using System.Net.Http;
@@ -12,7 +13,9 @@ namespace WeatherApp
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             SQLitePCL.Batteries_V2.Init();
+
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
@@ -20,18 +23,12 @@ namespace WeatherApp
                 .ConfigureMauiHandlers(handlers =>
                 {
 #if WINDOWS
-    				Microsoft.Maui.Controls.Handlers.Items.CollectionViewHandler.Mapper.AppendToMapping("KeyboardAccessibleCollectionView", (handler, view) =>
-    				{
-    					handler.PlatformView.SingleSelectionFollowsFocus = false;
-    				});
-
-    				Microsoft.Maui.Handlers.ContentViewHandler.Mapper.AppendToMapping(nameof(Pages.Controls.CategoryChart), (handler, view) =>
-    				{
-    					if (view is Pages.Controls.CategoryChart && handler.PlatformView is Microsoft.Maui.Platform.ContentPanel contentPanel)
-    					{
-    						contentPanel.IsTabStop = true;
-    					}
-    				});
+                    Microsoft.Maui.Controls.Handlers.Items.CollectionViewHandler.Mapper.AppendToMapping(
+                        "KeyboardAccessibleCollectionView",
+                        (handler, view) =>
+                        {
+                            handler.PlatformView.SingleSelectionFollowsFocus = false;
+                        });
 #endif
                 })
                 .ConfigureFonts(fonts =>
@@ -43,39 +40,27 @@ namespace WeatherApp
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
-    		builder.Services.AddLogging(configure => configure.AddDebug());
+            builder.Logging.AddDebug();
+            builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
-
-            builder.Services.AddSingleton<ProjectRepository>();
-            builder.Services.AddSingleton<TaskRepository>();
-            builder.Services.AddSingleton<CategoryRepository>();
-            builder.Services.AddSingleton<TagRepository>();
-            builder.Services.AddSingleton<SeedDataService>();
-            builder.Services.AddSingleton<ModalErrorHandler>();
-            builder.Services.AddSingleton<MainPageModel>();
-            builder.Services.AddSingleton<ProjectListPageModel>();
-            builder.Services.AddSingleton<ManageMetaPageModel>();
-
-            builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
-            builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
 
             builder.Services.AddSingleton(new HttpClient());
             builder.Services.AddSingleton<WeatherAPIService>();
+            builder.Services.AddSingleton<WeatherSearchService>();
+            builder.Services.AddTransient<WeatherStatisticsService>();
+
             builder.Services.AddSingleton<WeatherHistoryRepository>();
             builder.Services.AddSingleton<WeatherStatisticsRepository>();
-            builder.Services.AddTransient<WeatherStatisticsService>();
-            builder.Services.AddSingleton<WeatherSearchService>();
+            builder.Services.AddSingleton<FavoritesRepository>();
+
+            builder.Services.AddTransient<WeatherApp.Pages.HomePage>();
             builder.Services.AddTransient<WeatherApp.Views.CurrentWeatherPage>();
+            builder.Services.AddTransient<WeatherApp.Views.ForecastPage>();
             builder.Services.AddTransient<WeatherApp.Views.AirQualityPage>();
             builder.Services.AddTransient<WeatherApp.Views.HistoryPage>();
-            builder.Services.AddSingleton<FavoritesRepository>();
             builder.Services.AddTransient<WeatherApp.Views.FavoritesPage>();
-            builder.Services.AddTransient<WeatherApp.Pages.HomePage>();
             builder.Services.AddTransient<WeatherApp.Views.ComparePage>();
-            builder.Services.AddTransient<WeatherApp.Views.ForecastPage>();
             builder.Services.AddTransient<WeatherApp.Views.StatisticsPage>();
-            
 
             return builder.Build();
         }

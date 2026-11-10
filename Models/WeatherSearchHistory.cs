@@ -3,17 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 
-/*
-namespace WeatherApp.Models
-{
-    internal class WeatherSearchHistory
-    {
-    }
-}
-*/
-
-
-
 namespace WeatherApp.Models;
 
 public class WeatherSearchHistory

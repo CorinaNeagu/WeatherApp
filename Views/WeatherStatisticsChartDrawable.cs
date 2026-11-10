@@ -54,7 +54,6 @@ public class WeatherStatisticsChartDrawable : IDrawable
         canvas.FontSize = 10;
         canvas.StrokeSize = 1;
 
-        // Linii orizontale și valori pe axa verticală.
         for (int i = 0; i <= 4; i++)
         {
             float y = top + chartHeight * i / 4f;
@@ -76,7 +75,6 @@ public class WeatherStatisticsChartDrawable : IDrawable
                 VerticalAlignment.Center);
         }
 
-        // Axe.
         canvas.StrokeColor = Colors.Gray;
 
         canvas.DrawLine(
@@ -87,7 +85,6 @@ public class WeatherStatisticsChartDrawable : IDrawable
             left, top + chartHeight,
             width - right, top + chartHeight);
 
-        // Linia temperaturii și punctele măsurătorilor.
         canvas.StrokeColor = Color.FromArgb("#2196F3");
         canvas.StrokeSize = 3;
 
@@ -116,7 +113,6 @@ public class WeatherStatisticsChartDrawable : IDrawable
             previousY = y;
         }
 
-        // Date pe axa orizontală.
         canvas.FontColor = Colors.Gray;
         canvas.FontSize = 9;
 
